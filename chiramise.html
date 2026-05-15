@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>あなたの武器診断 — 結果 B</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&family=Noto+Sans+JP:wght@400;500;700&display=swap');
+  :root {
+    --bg: #f7f8fc;
+    --bg2: #ffffff;
+    --bg3: #eef0f7;
+    --border: #d8dce8;
+    --border2: #c2c8dc;
+    --text: #1a1f36;
+    --text2: #5a6180;
+    --text3: #9199b8;
+    --accent: #1c3a7a;
+    --accent2: #2d52a8;
+    --accent-light: #e8edf8;
+    --gold: #c8a96e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Noto Sans JP', sans-serif; font-size: 15px; line-height: 1.8; min-height: 100vh; }
+  .header { background: var(--accent); padding: 18px 24px; display: flex; align-items: center; gap: 12px; }
+  .header-logo { font-family: 'Noto Serif JP', serif; font-size: 13px; color: #fff; letter-spacing: 0.1em; }
+  .header-divider { width: 1px; height: 16px; background: rgba(255,255,255,0.3); }
+  .header-title { font-size: 13px; color: rgba(255,255,255,0.7); }
+  .container { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  .intro { margin-bottom: 40px; }
+  .intro-label { font-size: 11px; letter-spacing: 0.15em; color: var(--accent2); margin-bottom: 12px; }
+  .intro-heading { font-family: 'Noto Serif JP', serif; font-size: 22px; font-weight: 600; line-height: 1.6; color: var(--text); margin-bottom: 16px; }
+  .intro-body { font-size: 14px; color: var(--text2); line-height: 1.9; }
+  .count-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-light); border: 1px solid var(--border2); border-radius: 20px; padding: 4px 14px; font-size: 12px; color: var(--accent2); margin-bottom: 32px; }
+  .items-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 48px; }
+  .item { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 24px; position: relative; overflow: hidden; }
+  .item.open { border-left: 3px solid var(--accent2); }
+  .item-number { font-size: 11px; color: var(--text3); letter-spacing: 0.1em; margin-bottom: 10px; }
+  .item-headline { font-family: 'Noto Serif JP', serif; font-size: 17px; font-weight: 600; color: var(--text); line-height: 1.6; margin-bottom: 12px; }
+  .item-body { font-size: 14px; color: var(--text2); line-height: 1.9; }
+  .item.locked .item-headline, .item.locked .item-body { filter: blur(3px); pointer-events: none; user-select: none; }
+  .lock-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; background: rgba(247,248,252,0.6); }
+  .lock-icon { width: 24px; height: 24px; opacity: 0.4; }
+  .lock-text { font-size: 12px; color: var(--text3); letter-spacing: 0.05em; }
+  .cta-section { background: var(--accent); border-radius: 12px; padding: 40px 32px; text-align: center; color: #fff; }
+  .cta-label { font-size: 11px; letter-spacing: 0.15em; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
+  .cta-heading { font-family: 'Noto Serif JP', serif; font-size: 20px; font-weight: 600; line-height: 1.7; margin-bottom: 12px; }
+  .cta-body { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.9; margin-bottom: 28px; }
+  .cta-price { display: flex; align-items: baseline; justify-content: center; gap: 6px; margin-bottom: 6px; }
+  .cta-price-amount { font-size: 32px; font-weight: 700; }
+  .cta-price-unit { font-size: 14px; color: rgba(255,255,255,0.7); }
+  .cta-price-note { font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+  .btn-primary { display: block; width: 100%; max-width: 360px; margin: 0 auto 12px; background: #fff; color: var(--accent); border: none; border-radius: 6px; padding: 16px 24px; font-size: 15px; font-weight: 700; font-family: 'Noto Sans JP', sans-serif; cursor: pointer; transition: background 0.15s, transform 0.1s; text-decoration: none; text-align: center; }
+  .btn-primary:hover { background: #f0f3fc; }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn-secondary { display: block; width: 100%; max-width: 360px; margin: 0 auto; background: transparent; color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.3); border-radius: 6px; padding: 13px 24px; font-size: 14px; font-family: 'Noto Sans JP', sans-serif; cursor: pointer; transition: border-color 0.15s, color 0.15s; text-decoration: none; text-align: center; }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.6); color: #fff; }
+  .disclaimer { font-size: 11px; color: rgba(255,255,255,0.4); text-align: center; margin-top: 16px; line-height: 1.8; }
+  .disclaimer a { color: rgba(255,255,255,0.5); text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 480px) { .container { padding: 32px 16px 60px; } .item { padding: 18px 14px; } .cta-section { padding: 28px 20px; } }
+</style>
+</head>
+<body>
+<div class="header">
+  <span class="header-logo">Hokuyo Tech</span>
+  <div class="header-divider"></div>
+  <span class="header-title">あなたの武器診断 — 結果</span>
+</div>
+<div class="container">
+  <div class="intro">
+    <div class="intro-label">ANALYSIS RESULT</div>
+    <h1 class="intro-heading">面接官の目線から見た、<br>あなたの武器の診断結果です。</h1>
+    <p class="intro-body">①②は全文読めます。③〜⑩の続きは、自己分析レポートで確認できます。</p>
+  </div>
+  <div class="count-badge">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    残り8項目はモザイクがかかっています
+  </div>
+  <div class="items-list">
+    <div class="item open">
+      <div class="item-number">① 武器の指摘</div>
+      <div class="item-headline">面接官が見たいのは、あなたのその覚悟の根拠だ。</div>
+      <div class="item-body">あなたは「経理として予算が回りそうにない時、随時戦略を修正した」と書いている。<br>でも面接官が見たいのはそのスキルではない。<br>「社員を路頭に迷わせるから諦めない」と言えた、その覚悟の根拠だ。<br>なぜあなたはその局面で折れなかったのか。<br>その答えが今の履歴書のどこにも書かれていない。</div>
+    </div>
+    <div class="item open">
+      <div class="item-number">② 武器の指摘</div>
+      <div class="item-headline">面接官が見たいのは、あなたが言われる前に動けた事実だ。</div>
+      <div class="item-body">あなたはこの経験を「言い方を失敗した話」として記憶している。<br>しかし面接官が反応するのはそこではない。<br>社長が気づく前に現金周りを先読みして動けた、その事実だ。<br>上司の視野の外を動ける事務職は極めて少ない。<br>あなたはその武器を「失敗談」として履歴書の外に置いている。</div>
+    </div>
+    <div class="item locked">
+      <div class="item-number">③ 武器の指摘</div>
+      <div class="item-headline">面接官が聞きたいのは、あなたがなぜ友人にも甘えなかったのかだ。</div>
+      <div class="item-body">給与は人間関係を壊す力を持つ業務だ。あなたは「人間を変えることを学んだ」と書いている。でも面接官が聞きたいのはその先だ。社内の友人相手でも一切の甘さを排除して誠意を持って対応できた、その判断軸はどこから来ているのか。これは信頼を扱う能力の話であって、経理スキルの話ではない。</div>
+      <div class="lock-overlay" aria-hidden="true">
+        <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="#9199b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span class="lock-text">自己分析レポートで解除</span>
+      </div>
+    </div>
+    <div class="item locked">
+      <div class="item-number">④ 武器の指摘</div>
+      <div class="item-headline">面接官が反応するのは、あなたが立場に関係なく動けた事実だ。</div>
+      <div class="item-body">あなたはスーパーでの経験を「限られた時間で効率よくチームで動いた」と一言で終わらせている。でも面接官が見たいのは「主任相手でも臆せず用事を頼んだ」という事実だ。立場に関係なく必要なことを動ける人間かどうか、面接官はそこを見ている。その話が履歴書に存在しない。</div>
+      <div class="lock-overlay" aria-hidden="true">
+        <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="#9199b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span class="lock-text">自己分析レポートで解除</span>
+      </div>
+    </div>
+    <div class="item locked">
+      <div class="item-number">⑤ 武器の指摘</div>
+      <div class="item-headline">面接官が聞きたいのは、なぜ誰にも頼まれていないのに動いたかだ。</div>
+      <div class="item-body">あなたはこれを職歴の一行で終わらせている。指示がない中で現状を変えようとした動機、そこに人柄が出る。「業務短縮」という結果だけ書いても面接官の手は止まらない。なぜそれをしようと思ったのか。その答えがない。</div>
+      <div class="lock-overlay" aria-hidden="true">
+        <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="#9199b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span class="lock-text">自己分析レポートで解除</span>
+      </div>
+    </div>
+    <div class="item locked">
+      <div class="item-number">⑥ 武器の指摘</div>
+      <div class="item-headline">面接官はあなたの一貫性をここで感じる。</div>
+      <div class="item-body">ダミーテキスト。ロックされています。</div>
+      <div class="lock-overlay" aria-hidden="true">
+        <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="#9199b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span class="lock-text">自己分析レポートで解除</span>
+      </div>
+    </div>
+    <div class="item locked">
+      <div class="item-number">⑦ 武器の指摘</div>
+      <div class="item-headline">面接官が10人に1人も会えない発想を、あなたは持っている。</div>
+      <div class="item-body">ダミーテキスト。ロックされています。</div>
+      <div class="lock-overlay" aria-hidden="true">
+        <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="#9199b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span class="lock-text">自己分析レポートで解除</span>
+      </div>
+    </div>
+    <div class="item locked">
+      <div class="item-number">⑧ 武器の指摘</div>
+      <div class="item-headline">面接官はその言葉の裏を、必ず聞いてくる。</div>
+      <div class="item-body">ダミーテキスト。ロックされています。</div>
+      <div class="lock-overlay" aria-hidden="true">
+        <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="#9199b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span class="lock-text">自己分析レポートで解除</span>
+      </div>
+    </div>
+    <div class="item locked">
+      <div class="item-number">⑨ 武器の指摘</div>
+      <div class="item-headline">面接官に刺さる可能性がある言葉を、あなたはまだ眠らせている。</div>
+      <div class="item-body">ダミーテキスト。ロックされています。</div>
+      <div class="lock-overlay" aria-hidden="true">
+        <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="#9199b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span class="lock-text">自己分析レポートで解除</span>
+      </div>
+    </div>
+    <div class="item locked">
+      <div class="item-number">⑩ 武器の指摘</div>
+      <div class="item-headline">面接官はあなたが扉を開けた瞬間を、待っている。</div>
+      <div class="item-body">ダミーテキスト。ロックされています。</div>
+      <div class="lock-overlay" aria-hidden="true">
+        <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="#9199b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span class="lock-text">自己分析レポートで解除</span>
+      </div>
+    </div>
+  </div>
+  <div class="cta-section">
+    <div class="cta-label">自己分析レポート</div>
+    <h2 class="cta-heading">残り8項目を解除する</h2>
+    <p class="cta-body">③〜⑩には、あなたが気づいていない武器の指摘が続いています。<br>「なるほど」だけで終わらせたくない人のための、次のステップです。</p>
+    <div class="cta-price"><span class="cta-price-amount">¥3,000</span><span class="cta-price-unit">（税込）</span></div>
+    <p class="cta-price-note">デジタルコンテンツの性質上、決済完了後の返金は原則不可です</p>
+    <a href="#" class="btn-primary">自己分析レポートを受け取る（¥3,000）</a>
+    <a href="#" class="btn-secondary">回答を修正してから決済する</a>
+    <p class="disclaimer">決済にはStripeを使用しています。<br><a href="#">特定商取引法に基づく表記</a>　/　<a href="#">プライバシーポリシー</a>　/　<a href="#">利用規約</a></p>
+  </div>
+</div>
+</body>
+</html>

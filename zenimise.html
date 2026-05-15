@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>あなたの武器診断 — 全みせ</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&family=Noto+Sans+JP:wght@400;500;700&display=swap');
+  :root {
+    --bg: #f7f8fc;
+    --bg2: #ffffff;
+    --bg3: #eef0f7;
+    --border: #d8dce8;
+    --border2: #c2c8dc;
+    --text: #1a1f36;
+    --text2: #5a6180;
+    --text3: #9199b8;
+    --accent: #1c3a7a;
+    --accent2: #2d52a8;
+    --accent-light: #e8edf8;
+    --green: #1a6e3c;
+    --green-light: #e8f5ee;
+    --green-border: #a8d4b8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Noto Sans JP', sans-serif; font-size: 15px; line-height: 1.8; min-height: 100vh; }
+  .header { background: var(--accent); padding: 18px 24px; display: flex; align-items: center; gap: 12px; }
+  .header-logo { font-family: 'Noto Serif JP', serif; font-size: 13px; color: #fff; letter-spacing: 0.1em; }
+  .header-divider { width: 1px; height: 16px; background: rgba(255,255,255,0.3); }
+  .header-title { font-size: 13px; color: rgba(255,255,255,0.7); }
+  .unlocked-banner {
+    background: var(--green-light);
+    border-bottom: 1px solid var(--green-border);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--green);
+  }
+  .container { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  .intro { margin-bottom: 40px; }
+  .intro-label { font-size: 11px; letter-spacing: 0.15em; color: var(--accent2); margin-bottom: 12px; }
+  .intro-heading { font-family: 'Noto Serif JP', serif; font-size: 22px; font-weight: 600; line-height: 1.6; color: var(--text); margin-bottom: 16px; }
+  .intro-body { font-size: 14px; color: var(--text2); line-height: 1.9; }
+  .items-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 56px; }
+  .item { background: var(--bg2); border: 1px solid var(--border); border-left: 3px solid var(--accent2); border-radius: 8px; padding: 24px; }
+  .item-number { font-size: 11px; color: var(--text3); letter-spacing: 0.1em; margin-bottom: 10px; }
+  .item-headline { font-family: 'Noto Serif JP', serif; font-size: 17px; font-weight: 600; color: var(--text); line-height: 1.6; margin-bottom: 12px; }
+  .item-body { font-size: 14px; color: var(--text2); line-height: 1.9; }
+  .divider { height: 1px; background: var(--border); margin: 48px 0; }
+  .guidance-section { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 40px 36px; margin-bottom: 32px; }
+  .guidance-label { font-size: 11px; letter-spacing: 0.15em; color: var(--accent2); margin-bottom: 20px; }
+  .guidance-body { font-size: 15px; color: var(--text); line-height: 2.1; }
+  .guidance-body p { margin-bottom: 20px; }
+  .guidance-body p:last-child { margin-bottom: 0; }
+  .guidance-body .emphasis { font-family: 'Noto Serif JP', serif; font-size: 16px; font-weight: 600; color: var(--text); display: block; margin: 24px 0 8px; }
+  .guidance-body .closing { font-family: 'Noto Serif JP', serif; font-size: 15px; color: var(--accent); margin-top: 28px; display: block; }
+  .cta-section { background: var(--accent); border-radius: 12px; padding: 40px 32px; text-align: center; color: #fff; }
+  .cta-label { font-size: 11px; letter-spacing: 0.15em; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
+  .cta-heading { font-family: 'Noto Serif JP', serif; font-size: 20px; font-weight: 600; line-height: 1.7; margin-bottom: 12px; }
+  .cta-body { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.9; margin-bottom: 28px; }
+  .cta-price { display: flex; align-items: baseline; justify-content: center; gap: 6px; margin-bottom: 6px; }
+  .cta-price-amount { font-size: 32px; font-weight: 700; }
+  .cta-price-unit { font-size: 14px; color: rgba(255,255,255,0.7); }
+  .cta-price-note { font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+  .btn-primary { display: block; width: 100%; max-width: 360px; margin: 0 auto 12px; background: #fff; color: var(--accent); border: none; border-radius: 6px; padding: 16px 24px; font-size: 15px; font-weight: 700; font-family: 'Noto Sans JP', sans-serif; cursor: pointer; transition: background 0.15s, transform 0.1s; text-decoration: none; text-align: center; }
+  .btn-primary:hover { background: #f0f3fc; }
+  .btn-primary:active { transform: scale(0.98); }
+  .disclaimer { font-size: 11px; color: rgba(255,255,255,0.4); text-align: center; margin-top: 16px; line-height: 1.8; }
+  .disclaimer a { color: rgba(255,255,255,0.5); text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 480px) {
+    .container { padding: 32px 16px 60px; }
+    .item { padding: 18px 14px; }
+    .guidance-section { padding: 28px 20px; }
+    .cta-section { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="header-logo">Hokuyo Tech</span>
+  <div class="header-divider"></div>
+  <span class="header-title">あなたの武器診断 — 全みせ</span>
+</div>
+
+<div class="unlocked-banner">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+  自己分析レポートが解除されました。全10項目を読めます。
+</div>
+
+<div class="container">
+
+  <div class="intro">
+    <div class="intro-label">FULL REPORT</div>
+    <h1 class="intro-heading">面接官の目線から見た、<br>あなたの武器の全診断結果です。</h1>
+    <p class="intro-body">①〜⑩、すべて読んでください。</p>
+  </div>
+
+  <div class="items-list">
+
+    <div class="item">
+      <div class="item-number">① 武器の指摘</div>
+      <div class="item-headline">面接官が見たいのは、あなたのその覚悟の根拠だ。</div>
+      <div class="item-body">
+        あなたは「経理として予算が回りそうにない時、随時戦略を修正した」と書いている。<br>
+        でも面接官が見たいのはそのスキルではない。<br>
+        「社員を路頭に迷わせるから諦めない」と言えた、その覚悟の根拠だ。<br>
+        なぜあなたはその局面で折れなかったのか。<br>
+        その答えが今の履歴書のどこにも書かれていない。
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-number">② 武器の指摘</div>
+      <div class="item-headline">面接官が見たいのは、あなたが言われる前に動けた事実だ。</div>
+      <div class="item-body">
+        あなたはこの経験を「言い方を失敗した話」として記憶している。<br>
+        しかし面接官が反応するのはそこではない。<br>
+        社長が気づく前に現金周りを先読みして動けた、その事実だ。<br>
+        上司の視野の外を動ける事務職は極めて少ない。<br>
+        あなたはその武器を「失敗談」として履歴書の外に置いている。
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-number">③ 武器の指摘</div>
+      <div class="item-headline">面接官が聞きたいのは、あなたがなぜ友人にも甘えなかったのかだ。</div>
+      <div class="item-body">
+        給与は人間関係を壊す力を持つ業務だ。<br>
+        あなたは「人間を変えることを学んだ」と書いている。<br>
+        でも面接官が聞きたいのはその先だ。<br>
+        社内の友人相手でも一切の甘さを排除して誠意を持って対応できた、その判断軸はどこから来ているのか。<br>
+        これは信頼を扱う能力の話であって、経理スキルの話ではない。
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-number">④ 武器の指摘</div>
+      <div class="item-headline">面接官が反応するのは、あなたが立場に関係なく動けた事実だ。</div>
+      <div class="item-body">
+        あなたはスーパーでの経験を「限られた時間で効率よくチームで動いた」と一言で終わらせている。<br>
+        でも面接官が見たいのは「主任相手でも臆せず用事を頼んだ」という事実だ。<br>
+        立場に関係なく必要なことを動ける人間かどうか、面接官はそこを見ている。<br>
+        その話が履歴書に存在しない。
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-number">⑤ 武器の指摘</div>
+      <div class="item-headline">面接官が聞きたいのは、あなたがなぜ誰にも頼まれていないのに動いたかだ。</div>
+      <div class="item-body">
+        あなたはこれを職歴の一行で終わらせている。<br>
+        指示がない中で現状を変えようとした動機、そこに人柄が出る。<br>
+        「業務短縮」という結果だけ書いても面接官の手は止まらない。<br>
+        なぜそれをしようと思ったのか。その答えがない。
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-number">⑥ 武器の指摘</div>
+      <div class="item-headline">面接官はあなたの一貫性をここで感じる。</div>
+      <div class="item-body">
+        あなたはQ5で「自分がつらくても、つらさを見せず裏で動く人を見て心が動いた」と書いた。<br>
+        そしてQ4では自分自身がまさにそれをやっている。<br>
+        この二つが繋がっていることに、あなた自身が気づいていない。<br>
+        面接官はここを見た瞬間、あなたという人間の軸を感じる。
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-number">⑦ 武器の指摘</div>
+      <div class="item-headline">面接官が10人に1人も会えない発想を、あなたは持っている。</div>
+      <div class="item-body">
+        チームがギスギスした時、「気持ちをそのまま認めた上で、仕組みを変える方法を全員で考える」と答えた。<br>
+        感情を否定せず、かつ構造から解決しようとする。<br>
+        これを「普通の対応」だと思っているとしたら大きな誤解だ。<br>
+        この発想ができる人間に面接官は滅多に会えない。
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-number">⑧ 武器の指摘</div>
+      <div class="item-headline">面接官はその言葉の裏を、必ず聞いてくる。</div>
+      <div class="item-body">
+        「なんでも言うことを聞こうとしてくれる」と周りから言われることを<br>
+        あなたは良いところとして書いている。<br>
+        でも面接官はそこで止まらない。<br>
+        なぜそうできるのか、どこまでできるのかを聞きたくなる。<br>
+        この言葉の裏に何があるのか、あなた自身がまだ言語化できていない。
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-number">⑨ 武器の指摘</div>
+      <div class="item-headline">面接官に刺さる可能性がある言葉を、あなたはまだ眠らせている。</div>
+      <div class="item-body">
+        あなたは「より心の高みに行きたい」と書いた。<br>
+        この言葉があなたの職歴のどの経験と繋がっているのか。<br>
+        それが見えた瞬間、この一言は履歴書で最も強い言葉になる。<br>
+        今のままでは、ただの抽象論で終わる。
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-number">⑩ 武器の指摘</div>
+      <div class="item-headline">面接官はあなたが扉を開けた瞬間を、待っている。</div>
+      <div class="item-body">
+        あなたは「自分の普通じゃない部分を引き出したい」と書いた。<br>
+        自分に「普通じゃない部分がある」と感じている人間は、<br>
+        それを言語化できた瞬間に面接で別人になる。<br>
+        あなたはすでにその入口に立っている。ただ、まだ扉を開けていない。
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="guidance-section">
+    <div class="guidance-label">K氏からあなたへ</div>
+    <div class="guidance-body">
+      <p>ここまで読んで、「なるほど」と思った方へ。</p>
+      <p>それはあなたが、自分の経験を正直に書いたからです。<br>その誠実さは、すでに武器です。</p>
+      <p>ただ、一つだけ聞かせてください。</p>
+      <p>①から⑩を読んで、「そうか、わかった」と思いましたか？</p>
+      <p>けれど、<br>
+      「どう見せればいいのか、まだわからない」<br>
+      と感じましたか？</p>
+      <p>そして、<br>
+      私は、もっと上を目指したいという気持ちが残ってる。</p>
+      <span class="emphasis">その感覚が残っている人だけ、K氏と話してください。</span>
+      <p>K氏はあなたを評価しません。<br>
+      あなたの夢も、強みも、弱みも、否定しません。</p>
+      <p>ただ一つだけ——<br>
+      あなたが輝ける場所と、あなたがマッチするには、<br>
+      あなた自身が何に気づけばいいか。<br>
+      それだけを、あなたと一緒に見ます。</p>
+      <span class="closing">あなたと話せることを、心待ちにしております。</span>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <div class="cta-label">転職・就職 個別相談</div>
+    <h2 class="cta-heading">K氏との個別相談を申し込む</h2>
+    <p class="cta-body">選抜者のみ。日程調整後、ZoomにてK氏と1対1でお話しします。</p>
+    <div class="cta-price">
+      <span class="cta-price-amount">¥10,000</span>
+      <span class="cta-price-unit">（税込）</span>
+    </div>
+    <p class="cta-price-note">予約日時の24時間前までのキャンセルは無償で承ります</p>
+    <a href="#" class="btn-primary">個別相談を申し込む（TimeRex）</a>
+    <p class="disclaimer">
+      決済にはStripeを使用しています。<br>
+      <a href="#">特定商取引法に基づく表記</a>　/　<a href="#">プライバシーポリシー</a>　/　<a href="#">利用規約</a>
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
