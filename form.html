@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自己分析フォーム | 北陽テック</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #1a2744;
+    --navy-light: #2d3f6b;
+    --navy-muted: #6b7a9e;
+    --white: #ffffff;
+    --off-white: #f8f9fc;
+    --border: #dde2ee;
+    --border-focus: #1a2744;
+    --error: #c0392b;
+    --error-bg: #fdf0ef;
+    --error-border: #e74c3c;
+    --success: #1e7e4a;
+    --text: #1a2744;
+    --text-light: #4a5578;
+    --text-muted: #8a93b0;
+    --label-size: 11px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  /* ヘッダー */
+  header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--navy);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+  }
+
+  .logo span {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: block;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+  }
+
+  .header-note {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* メインコンテンツ */
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 6rem;
+  }
+
+  /* イントロ */
+  .intro {
+    margin-bottom: 3rem;
+  }
+
+  .intro-label {
+    font-size: var(--label-size);
+    letter-spacing: 0.2em;
+    color: var(--navy-muted);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .intro h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(20px, 3.5vw, 28px);
+    font-weight: 300;
+    color: var(--navy);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .intro p {
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.9;
+    max-width: 560px;
+  }
+
+  /* 自動保存バナー */
+  .autosave-banner {
+    background: var(--navy);
+    color: rgba(255,255,255,0.85);
+    font-size: 12px;
+    padding: 0.6rem 1.25rem;
+    border-radius: 4px;
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .autosave-banner .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4ade80;
+    flex-shrink: 0;
+  }
+
+  /* セクション */
+  .section {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2rem 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-header {
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-size: var(--label-size);
+    letter-spacing: 0.2em;
+    color: var(--navy-muted);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .section-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--navy);
+  }
+
+  .section-note {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+    line-height: 1.7;
+  }
+
+  /* フォームグループ */
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .form-label .q-num {
+    display: inline-block;
+    background: var(--navy);
+    color: white;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 1px 6px;
+    border-radius: 2px;
+    margin-right: 6px;
+    letter-spacing: 0.05em;
+    vertical-align: middle;
+  }
+
+  .form-label .optional {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 300;
+    margin-left: 6px;
+  }
+
+  .form-hint {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  input[type="text"],
+  textarea {
+    width: 100%;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    outline: none;
+    transition: border-color 0.15s;
+    line-height: 1.7;
+    resize: vertical;
+  }
+
+  input[type="text"]:focus,
+  textarea:focus {
+    border-color: var(--border-focus);
+  }
+
+  input[type="text"].error,
+  textarea.error {
+    border-color: var(--error-border);
+    background: var(--error-bg);
+  }
+
+  textarea.standard { min-height: 120px; }
+  textarea.tall { min-height: 160px; }
+
+  .char-count {
+    text-align: right;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+  }
+
+  .char-count.warning { color: var(--error); }
+  .char-count.ok { color: var(--success); }
+
+  .error-message {
+    font-size: 12px;
+    color: var(--error);
+    margin-top: 0.4rem;
+    display: none;
+  }
+
+  .error-message.visible { display: block; }
+
+  /* ファイルアップロード */
+  .file-upload-area {
+    border: 1.5px dashed var(--border);
+    border-radius: 4px;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    position: relative;
+  }
+
+  .file-upload-area:hover {
+    border-color: var(--navy-muted);
+    background: var(--off-white);
+  }
+
+  .file-upload-area input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+
+  .file-upload-icon {
+    font-size: 24px;
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+  }
+
+  .file-upload-text {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-bottom: 0.25rem;
+  }
+
+  .file-upload-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .file-selected {
+    font-size: 12px;
+    color: var(--success);
+    margin-top: 0.5rem;
+    display: none;
+  }
+
+  /* PP同意 */
+  .consent-area {
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    cursor: pointer;
+  }
+
+  .consent-area input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    cursor: pointer;
+    accent-color: var(--navy);
+  }
+
+  .consent-text {
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+
+  .consent-text a {
+    color: var(--navy);
+    text-decoration: underline;
+  }
+
+  /* 送信ボタン */
+  .submit-area {
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .submit-btn {
+    display: inline-block;
+    background: var(--navy);
+    color: white;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 1rem 3rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: background 0.15s;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .submit-btn:hover { background: var(--navy-light); }
+  .submit-btn:disabled { background: var(--text-muted); cursor: not-allowed; }
+
+  .submit-note {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 0.75rem;
+    line-height: 1.7;
+  }
+
+  /* 送信エラー全体 */
+  .form-error-summary {
+    background: var(--error-bg);
+    border: 1px solid var(--error-border);
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+    font-size: 13px;
+    color: var(--error);
+    margin-bottom: 1.5rem;
+    display: none;
+    line-height: 1.7;
+  }
+
+  .form-error-summary.visible { display: block; }
+
+  /* フッター */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 12px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 4rem;
+  }
+
+  /* レスポンシブ */
+  @media (max-width: 600px) {
+    header { padding: 1rem 1.25rem; }
+    main { padding: 2rem 1rem 5rem; }
+    .section { padding: 1.5rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    北陽テック
+    <span>Hokuyo Tech</span>
+  </a>
+  <span class="header-note">自動保存されます</span>
+</header>
+
+<main>
+
+  <div class="intro">
+    <p class="intro-label">Self Analysis Form</p>
+    <h1>あなたの経験を、<br>正直に書いてください。</h1>
+    <p>うまく書こうとしなくていい。<br>あなたの言葉で、あなたの経験をそのまま書いてください。<br>面接官が反応するポイントは、こちらで見つけます。</p>
+  </div>
+
+  <div class="autosave-banner">
+    <span class="dot"></span>
+    <span>入力内容はブラウザに自動保存されます。途中で閉じても再開できます。</span>
+  </div>
+
+  <!-- ① 希望業種・職種 -->
+  <div class="section">
+    <div class="section-header">
+      <p class="section-label">Section 01</p>
+      <p class="section-title">希望する業種・職種</p>
+      <p class="section-note">目指したい方向性を教えてください。「まだ決まっていない」でも構いません。</p>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="hope_industry">
+        希望業種
+        <span class="optional">任意</span>
+      </label>
+      <p class="form-hint">目指したい業種があれば記入してください。</p>
+      <input type="text" id="hope_industry" name="hope_industry" placeholder="例：IT・通信、医療・福祉、製造業" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="avoid_industry">
+        避けたい業種
+        <span class="optional">任意</span>
+      </label>
+      <p class="form-hint">もう携わりたくない業種があれば。</p>
+      <input type="text" id="avoid_industry" name="avoid_industry" placeholder="例：飲食業、不動産" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="hope_job">
+        希望職種
+        <span class="optional">任意</span>
+      </label>
+      <p class="form-hint">目指したい職種があれば記入してください。</p>
+      <input type="text" id="hope_job" name="hope_job" placeholder="例：営業、エンジニア、マーケター" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="avoid_job">
+        避けたい職種
+        <span class="optional">任意</span>
+      </label>
+      <p class="form-hint">もう携わりたくない職種があれば。</p>
+      <input type="text" id="avoid_job" name="avoid_job" placeholder="例：接客、管理職" />
+    </div>
+  </div>
+
+  <!-- ② 11問 -->
+  <div class="section">
+    <div class="section-header">
+      <p class="section-label">Section 02</p>
+      <p class="section-title">11の質問</p>
+      <p class="section-note">あなたの経験を正直に書いてください。うまく書こうとしなくていい。<br>具体的なエピソードがあるほど、精度が上がります。</p>
+    </div>
+
+    <!-- Q1 -->
+    <div class="form-group">
+      <label class="form-label" for="q1">
+        <span class="q-num">Q1</span>
+        これまで在籍した会社の業種と、誰を相手にどんな仕事をしていましたか？
+      </label>
+      <textarea id="q1" name="q1" class="standard" placeholder="例：製造業の会社で、法人営業を担当していました。主に中小企業の購買担当者を相手に…"></textarea>
+      <div class="char-count" id="q1-count">0文字</div>
+      <div class="error-message" id="q1-error">もう少し詳しく教えてください（30文字以上）</div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="form-group">
+      <label class="form-label" for="q2">
+        <span class="q-num">Q2</span>
+        これまで在籍した会社の「良さ」は、どういう点でしたか？
+      </label>
+      <textarea id="q2" name="q2" class="standard" placeholder="例：上司が仕事の進め方を丁寧に教えてくれる環境で、若手でも意見が通りやすかった。"></textarea>
+      <div class="char-count" id="q2-count">0文字</div>
+      <div class="error-message" id="q2-error">もう少し詳しく教えてください（30文字以上）</div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="form-group">
+      <label class="form-label" for="q3">
+        <span class="q-num">Q3</span>
+        「よし、いい仕事をした！」と自分を褒めたくなった瞬間はいつですか？
+      </label>
+      <textarea id="q3" name="q3" class="tall" placeholder="例：クレームが続いていたお客様に3ヶ月間丁寧にフォローし続けた結果、「あなただから信頼できる」と言っていただいた瞬間。小さなことかもしれないが、本当に嬉しかった。"></textarea>
+      <div class="char-count" id="q3-count">0文字</div>
+      <div class="error-message" id="q3-error">もう少し詳しく教えてください（100文字以上）</div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="form-group">
+      <label class="form-label" for="q4">
+        <span class="q-num">Q4</span>
+        思わず「きついな…」と独り言が出てしまった苦労や、その時の行動を教えてください。
+      </label>
+      <textarea id="q4" name="q4" class="tall" placeholder="例：繁忙期に一人でプロジェクトを抱えて毎晩残業が続いた時、誰にも言えず限界を感じた。それでも翌朝は笑顔で出社するために、帰り道に近所の公園で10分だけ座って気持ちを整理するようにしていた。"></textarea>
+      <div class="char-count" id="q4-count">0文字</div>
+      <div class="error-message" id="q4-error">もう少し詳しく教えてください（100文字以上）</div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="form-group">
+      <label class="form-label" for="q5">
+        <span class="q-num">Q5</span>
+        同僚や先輩の行動で「これは素敵だな」と心が動いた瞬間はありますか？
+      </label>
+      <textarea id="q5" name="q5" class="tall" placeholder="例：先輩が忙しい中でも新入社員の話をちゃんと聞いてメモを取っていた。「後で必ず答えを返す」と言って、翌日本当に調べてきた姿に感動した。"></textarea>
+      <div class="char-count" id="q5-count">0文字</div>
+      <div class="error-message" id="q5-error">もう少し詳しく教えてください（100文字以上）</div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="form-group">
+      <label class="form-label" for="q6">
+        <span class="q-num">Q6</span>
+        周りから言われる「あなたの良いところ」や、ほめられた点は何ですか？
+      </label>
+      <textarea id="q6" name="q6" class="standard" placeholder="例：「気配りができる」「報告が早い」「困った顔をした人に気がつくのが早い」と言われることが多い。"></textarea>
+      <div class="char-count" id="q6-count">0文字</div>
+      <div class="error-message" id="q6-error">もう少し詳しく教えてください（30文字以上）</div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="form-group">
+      <label class="form-label" for="q7">
+        <span class="q-num">Q7</span>
+        チームの仲が非常に悪くギスギスしていたら、あなたならどうしますか？
+      </label>
+      <textarea id="q7" name="q7" class="tall" placeholder="例：まず一人ひとりと個別に話す機会を作る。全員を一度に集めると感情的になりやすいので、まず各自の話を聞いてから、共通点を探して…"></textarea>
+      <div class="char-count" id="q7-count">0文字</div>
+      <div class="error-message" id="q7-error">もう少し詳しく教えてください（100文字以上）</div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="form-group">
+      <label class="form-label" for="q8">
+        <span class="q-num">Q8</span>
+        7番で答えたことの「それから？」を教えてください。
+      </label>
+      <p class="form-hint">Q7で書いた行動の後、どうなりましたか？あるいは次に何をしますか？</p>
+      <textarea id="q8" name="q8" class="tall" placeholder="例：それぞれの話を聞いた後、「実は全員が同じことに困っていた」という事実に気がついた。その事実を共有する場を設けたら、急にチームの空気が変わった。ただ、その後また問題が出た時に…"></textarea>
+      <div class="char-count" id="q8-count">0文字</div>
+      <div class="error-message" id="q8-error">もう少し詳しく教えてください（100文字以上）</div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="form-group">
+      <label class="form-label" for="q9">
+        <span class="q-num">Q9</span>
+        5年後、10年後のあなたは、どこで、誰と、どんな風に過ごしていたいですか？
+      </label>
+      <textarea id="q9" name="q9" class="standard" placeholder="例：自分が信頼できる仲間と、地域に根ざした仕事をしていたい。肩書きより、「あの人に頼めば大丈夫」と思われる存在でいたい。"></textarea>
+      <div class="char-count" id="q9-count">0文字</div>
+      <div class="error-message" id="q9-error">もう少し詳しく教えてください（30文字以上）</div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="form-group">
+      <label class="form-label" for="q10">
+        <span class="q-num">Q10</span>
+        今の正直な気持ちや、今一番「変えたい」と思っていることを自由に書いてください。
+      </label>
+      <textarea id="q10" name="q10" class="standard" placeholder="例：このままでいいのか、という不安がずっとある。評価されていないわけじゃないけど、自分が本当にやりたいことと今の仕事がズレている気がして…"></textarea>
+      <div class="char-count" id="q10-count">0文字</div>
+      <div class="error-message" id="q10-error">もう少し詳しく教えてください（30文字以上）</div>
+    </div>
+
+    <!-- Q11 -->
+    <div class="form-group">
+      <label class="form-label" for="q11">
+        <span class="q-num">Q11</span>
+        多くの相談場所がある中で、私たちを選んでくれた理由を教えてください。
+      </label>
+      <textarea id="q11" name="q11" class="standard" placeholder="例：転職エージェントに登録したが、求人を紹介されるだけで自分の強みを考えてくれる場所がなかった。自分の言葉で話せる場所を探していた。"></textarea>
+      <div class="char-count" id="q11-count">0文字</div>
+      <div class="error-message" id="q11-error">もう少し詳しく教えてください（30文字以上）</div>
+    </div>
+  </div>
+
+  <!-- ③ 履歴書アップロード -->
+  <div class="section">
+    <div class="section-header">
+      <p class="section-label">Section 03</p>
+      <p class="section-title">履歴書・職務経歴書 <span style="font-size:13px; font-weight:300; color:var(--text-muted);">（任意）</span></p>
+      <p class="section-note">添付すると分析の精度が上がります。提出しなくても分析は実行されます。<br>PDF・Word形式対応。面談終了後に削除します。</p>
+    </div>
+
+    <div class="file-upload-area" id="upload-area">
+      <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" />
+      <div class="file-upload-icon">📄</div>
+      <p class="file-upload-text">クリックしてファイルを選択</p>
+      <p class="file-upload-sub">PDF / Word（.doc, .docx）</p>
+      <p class="file-selected" id="file-selected-msg"></p>
+    </div>
+  </div>
+
+  <!-- ④ PP同意・送信 -->
+  <div class="section">
+    <div class="section-header">
+      <p class="section-label">Section 04</p>
+      <p class="section-title">確認・送信</p>
+    </div>
+
+    <div class="form-error-summary" id="form-error-summary">
+      入力が不足している項目があります。赤くなっている質問を確認してください。<br>
+      有料サービスでは、具体的なエピソードがあるほど精度が上がります。
+    </div>
+
+    <label class="consent-area" for="pp-consent">
+      <input type="checkbox" id="pp-consent" name="pp-consent" />
+      <span class="consent-text">
+        <a href="privacy.html" target="_blank">プライバシーポリシー</a>および
+        <a href="terms.html" target="_blank">利用規約</a>に同意します。
+        入力した情報は分析のために使用し、第三者への販売は行いません。
+      </span>
+    </label>
+
+    <div class="submit-area">
+      <button type="button" class="submit-btn" id="submit-btn" onclick="handleSubmit()">
+        分析を依頼する（無料）
+      </button>
+      <p class="submit-note">
+        送信後、面接官目線の分析結果（一部）をお見せします。<br>
+        決済は不要です。まず結果をご覧ください。
+      </p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2026 北陽テック / Hokuyo Tech　｜　<a href="tokushoho.html" style="color:inherit;">特定商取引法</a>　<a href="privacy.html" style="color:inherit;">プライバシーポリシー</a>　<a href="terms.html" style="color:inherit;">利用規約</a></p>
+</footer>
+
+<script>
+  // ─── 設定 ───────────────────────────────────────
+  const STORAGE_KEY = 'hokuyo_form_v1';
+
+  const FIELDS = [
+    { id: 'hope_industry', minLen: 0 },
+    { id: 'avoid_industry', minLen: 0 },
+    { id: 'hope_job', minLen: 0 },
+    { id: 'avoid_job', minLen: 0 },
+    { id: 'q1',  minLen: 30,  size: 'standard' },
+    { id: 'q2',  minLen: 30,  size: 'standard' },
+    { id: 'q3',  minLen: 100, size: 'tall' },
+    { id: 'q4',  minLen: 100, size: 'tall' },
+    { id: 'q5',  minLen: 100, size: 'tall' },
+    { id: 'q6',  minLen: 30,  size: 'standard' },
+    { id: 'q7',  minLen: 100, size: 'tall' },
+    { id: 'q8',  minLen: 100, size: 'tall' },
+    { id: 'q9',  minLen: 30,  size: 'standard' },
+    { id: 'q10', minLen: 30,  size: 'standard' },
+    { id: 'q11', minLen: 30,  size: 'standard' },
+  ];
+
+  // ─── 自動保存・復元 ────────────────────────────
+  function saveToStorage() {
+    const data = {};
+    FIELDS.forEach(f => {
+      const el = document.getElementById(f.id);
+      if (el) data[f.id] = el.value;
+    });
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+  }
+
+  function loadFromStorage() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      FIELDS.forEach(f => {
+        const el = document.getElementById(f.id);
+        if (el && data[f.id] !== undefined) {
+          el.value = data[f.id];
+          updateCharCount(f.id, f.minLen);
+        }
+      });
+    } catch(e) {}
+  }
+
+  // ─── 文字数カウント ────────────────────────────
+  function updateCharCount(id, minLen) {
+    const el = document.getElementById(id);
+    const countEl = document.getElementById(id + '-count');
+    if (!el || !countEl) return;
+    const len = el.value.length;
+    countEl.textContent = len + '文字';
+    if (minLen > 0) {
+      countEl.className = 'char-count ' + (len >= minLen ? 'ok' : (len > 0 ? 'warning' : ''));
+    }
+  }
+
+  // ─── バリデーション ────────────────────────────
+  function validate() {
+    let hasError = false;
+    FIELDS.forEach(f => {
+      if (f.minLen === 0) return;
+      const el = document.getElementById(f.id);
+      const errEl = document.getElementById(f.id + '-error');
+      if (!el) return;
+      const len = el.value.trim().length;
+      if (len < f.minLen) {
+        el.classList.add('error');
+        if (errEl) errEl.classList.add('visible');
+        hasError = true;
+      } else {
+        el.classList.remove('error');
+        if (errEl) errEl.classList.remove('visible');
+      }
+    });
+    return !hasError;
+  }
+
+  // ─── 送信処理 ─────────────────────────────────
+  function handleSubmit() {
+    const consent = document.getElementById('pp-consent');
+    const summaryEl = document.getElementById('form-error-summary');
+
+    if (!consent.checked) {
+      alert('プライバシーポリシーと利用規約への同意が必要です。');
+      return;
+    }
+
+    const valid = validate();
+    if (!valid) {
+      summaryEl.classList.add('visible');
+      // 最初のエラー箇所にスクロール
+      const firstError = document.querySelector('textarea.error, input.error');
+      if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    summaryEl.classList.remove('visible');
+
+    // ── ここにMake WebhookのURLを設定する（現在はダミー）──
+    // const WEBHOOK_URL = 'https://hook.make.com/xxxxxxxx';
+    // 現時点では送信処理はダミー。Make連携時に差し替え。
+    alert('送信しました。（現在テスト中のため、この画面はダミーです）');
+  }
+
+  // ─── イベント登録 ─────────────────────────────
+  document.addEventListener('DOMContentLoaded', () => {
+    loadFromStorage();
+
+    FIELDS.forEach(f => {
+      const el = document.getElementById(f.id);
+      if (!el) return;
+      el.addEventListener('input', () => {
+        updateCharCount(f.id, f.minLen);
+        saveToStorage();
+        // リアルタイムでエラー解除
+        if (f.minLen > 0 && el.value.trim().length >= f.minLen) {
+          el.classList.remove('error');
+          const errEl = document.getElementById(f.id + '-error');
+          if (errEl) errEl.classList.remove('visible');
+        }
+      });
+    });
+
+    // ファイル選択表示
+    const resumeInput = document.getElementById('resume');
+    const selectedMsg = document.getElementById('file-selected-msg');
+    if (resumeInput) {
+      resumeInput.addEventListener('change', () => {
+        if (resumeInput.files.length > 0) {
+          selectedMsg.textContent = '✓ ' + resumeInput.files[0].name;
+          selectedMsg.style.display = 'block';
+        }
+      });
+    }
+  });
+</script>
+</body>
+</html>
