@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>自己分析フォーム | 北陽テック</title>
+<title id="page-title">自己分析フォーム | 北陽テック</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap');
 
@@ -424,7 +424,7 @@
 
   <div class="intro">
     <p class="intro-label">Self Analysis Form</p>
-    <h1>あなたの経験を、<br>正直に書いてください。</h1>
+    <h1 id="intro-heading">あなたの経験を、<br>正直に書いてください。</h1>
     <p>うまく書こうとしなくていい。<br>あなたの言葉で、あなたの経験をそのまま書いてください。<br>面接官が反応するポイントは、こちらで見つけます。</p>
   </div>
 
@@ -649,7 +649,7 @@
 
     <div class="submit-area">
       <button type="button" class="submit-btn" id="submit-btn" onclick="handleSubmit()">
-        分析を依頼する（無料）
+        <span id="submit-label">分析を依頼する（無料）</span>
       </button>
       <p class="submit-note">
         送信後、面接官目線の分析結果（一部）をお見せします。<br>
@@ -789,6 +789,23 @@
         }
       });
     });
+
+    // ファイル選択表示
+    // ─── 編集モード判定 ────────────────────────────
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('mode') === 'edit') {
+      // タイトル・見出し・ボタン文言を変更
+      document.getElementById('page-title').textContent = '回答を修正する | 北陽テック';
+      document.getElementById('intro-heading').innerHTML = '回答を修正する';
+      document.getElementById('submit-label').textContent = '修正して決済に進む（¥3,000）';
+      // 自動保存バナーを非表示
+      document.querySelector('.autosave-banner').style.display = 'none';
+      // 注意書きを追加
+      const notice = document.createElement('div');
+      notice.style.cssText = 'background:#e8edf8;border:1px solid #c2c8dc;border-radius:4px;padding:1rem 1.25rem;font-size:13px;color:#2d52a8;line-height:1.8;margin-bottom:2rem;';
+      notice.textContent = '修正した内容は、決済後の全みせ分析に反映されます。チラ見せの再生成はありません。修正は任意です。';
+      document.querySelector('.intro').after(notice);
+    }
 
     // ファイル選択表示
     const resumeInput = document.getElementById('resume');
