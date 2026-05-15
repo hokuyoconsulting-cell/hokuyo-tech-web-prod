@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>免責事項 | 北陽テック</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #1a2744;
+    --navy-light: #2d3f6b;
+    --navy-muted: #6b7a9e;
+    --white: #ffffff;
+    --off-white: #f8f9fc;
+    --border: #dde2ee;
+    --text: #1a2744;
+    --text-light: #4a5578;
+    --text-muted: #8a93b0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--navy);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+  }
+
+  .logo span {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: block;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+  }
+
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 6rem;
+  }
+
+  .page-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--navy-muted);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(20px, 3.5vw, 26px);
+    font-weight: 300;
+    color: var(--navy);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+
+  .updated {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+  }
+
+  .section {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section p {
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.9;
+    margin-bottom: 1rem;
+  }
+
+  .section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .highlight-box {
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--navy);
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.9;
+    margin-top: 1rem;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 12px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 4rem;
+  }
+
+  footer a {
+    color: var(--text-muted);
+    text-decoration: none;
+    margin: 0 0.5rem;
+  }
+
+  footer a:hover { color: var(--navy); }
+
+  @media (max-width: 600px) {
+    header { padding: 1rem 1.25rem; }
+    main { padding: 2rem 1rem 5rem; }
+    .section { padding: 1.5rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    北陽テック
+    <span>Hokuyo Tech</span>
+  </a>
+</header>
+
+<main>
+  <p class="page-label">Disclaimer</p>
+  <h1>免責事項</h1>
+  <p class="updated">最終更新：2026年5月</p>
+
+  <div class="section">
+    <h2>成果・結果について</h2>
+    <p>本サービスは、内定・採用・年収アップを保証するものではありません。個人の気づきと戦略立案を支援することを目的としています。</p>
+    <div class="highlight-box">
+      本サービスの利用によって生じた結果（就職・転職の成否を含む）について、運営者は一切の責任を負いません。
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>情報の正確性について</h2>
+    <p>本サービスが提供する分析結果・アドバイスは、ご入力いただいた情報をもとに生成されるものであり、その正確性・完全性・有用性を保証するものではありません。</p>
+    <p>分析結果はあくまで参考情報としてご活用ください。最終的な判断はご自身の責任のもとで行ってください。</p>
+  </div>
+
+  <div class="section">
+    <h2>第三者サービスについて</h2>
+    <p>本サービスはStripe（決済）・Zoom（オンライン面談）・LINE（連絡手段）等の第三者サービスを利用しています。これらのサービスに起因するトラブル・損害について、運営者は責任を負いません。</p>
+  </div>
+
+  <div class="section">
+    <h2>サービス内容の変更・停止について</h2>
+    <p>運営者は、予告なくサービス内容の変更・一時停止・終了を行う場合があります。これによって生じた損害について、運営者は責任を負いません。</p>
+  </div>
+
+  <div class="section">
+    <h2>お問い合わせ</h2>
+    <p>本免責事項に関するお問い合わせは、以下までご連絡ください。</p>
+    <p>北山 美香子 / 北陽テック（Hokuyo Tech）<br>
+    メール：hokuyo.consulting@gmail.com<br>
+    受付時間：平日 10:00〜18:00</p>
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 北陽テック / Hokuyo Tech</p>
+  <p style="margin-top:0.5rem;">
+    <a href="tokushoho.html">特定商取引法</a>
+    <a href="privacy.html">プライバシーポリシー</a>
+    <a href="terms.html">利用規約</a>
+  </p>
+</footer>
+
+</body>
+</html>
