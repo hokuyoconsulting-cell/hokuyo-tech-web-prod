@@ -766,8 +766,7 @@
     summaryEl.classList.remove('visible');
 
     // ── ここにMake WebhookのURLを設定する（現在はダミー）──
-    // const WEBHOOK_URL = 'https://hook.make.com/xxxxxxxx';
-    // 現時点では送信処理はダミー。Make連携時に差し替え。
+    const WEBHOOK_URL = 'https://hook.eu1.make.com/n15gtrn5nj7okjuix84eq7p5gadibx7q';
     alert('送信しました。（現在テスト中のため、この画面はダミーです）');
   }
 
@@ -790,6 +789,7 @@
       });
     });
 
+    // ファイル選択表示
     // ─── 編集モード判定 ────────────────────────────
     const params = new URLSearchParams(window.location.search);
     if (params.get('mode') === 'edit') {
