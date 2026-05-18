@@ -767,7 +767,30 @@
 
     // ── ここにMake WebhookのURLを設定する（現在はダミー）──
     const WEBHOOK_URL = 'https://hook.eu1.make.com/n15gtrn5nj7okjuix84eq7p5gadibx7q';
-    alert('送信しました。（現在テスト中のため、この画面はダミーです）');
+
+    const payload = {};
+    FIELDS.forEach(f => {
+      const el = document.getElementById(f.id);
+      if (el) payload[f.id] = el.value;
+    });
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    document.getElementById('submit-label').textContent = '送信中...';
+
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(() => {
+      alert('送信しました。分析結果はLINEにてお送りします。');
+    })
+    .catch(() => {
+      alert('送信に失敗しました。時間をおいて再度お試しください。');
+      btn.disabled = false;
+      document.getElementById('submit-label').textContent = '分析を依頼する（無料）';
+    });
   }
 
   // ─── イベント登録 ─────────────────────────────
