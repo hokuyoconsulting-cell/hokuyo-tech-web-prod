@@ -691,7 +691,7 @@
     const data = {};
     FIELDS.forEach(f => {
       const el = document.getElementById(f.id);
-      if (el) data[f.id] = el.value;
+      if (el) payload[f.id] = el.value.replace(/\r\n/g, '\\n').replace(/\r/g, '\\n').replace(/\n/g, '\\n');
     });
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
   }
