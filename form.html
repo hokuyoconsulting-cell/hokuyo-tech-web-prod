@@ -784,7 +784,7 @@
       body: JSON.stringify(payload)
     })
     .then(() => {
-      alert('送信しました。分析結果はLINEにてお送りします。');
+      window.location.href = 'thanks.html';
     })
     .catch(() => {
       alert('送信に失敗しました。時間をおいて再度お試しください。');
