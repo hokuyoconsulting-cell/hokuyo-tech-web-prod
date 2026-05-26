@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -38,10 +39,15 @@
   .item-number { font-size: 11px; color: var(--text3); letter-spacing: 0.1em; margin-bottom: 10px; }
   .item-headline { font-family: 'Noto Serif JP', serif; font-size: 17px; font-weight: 600; color: var(--text); line-height: 1.6; margin-bottom: 12px; }
   .item-body { font-size: 14px; color: var(--text2); line-height: 1.9; }
-  .item.locked .item-headline, .item.locked .item-body { filter: blur(3px); pointer-events: none; user-select: none; }
+  .item.locked .item-headline, .item.locked .item-body { filter: blur(4px); pointer-events: none; user-select: none; }
   .lock-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; background: rgba(247,248,252,0.6); }
   .lock-icon { width: 24px; height: 24px; opacity: 0.4; }
   .lock-text { font-size: 12px; color: var(--text3); letter-spacing: 0.05em; }
+  .cta-inline { text-align: center; padding: 20px 0 8px; }
+  .btn-inline { display: inline-block; background: var(--accent); color: #fff; border-radius: 6px; padding: 12px 28px; font-size: 14px; font-weight: 700; text-decoration: none; }
+  .btn-inline:hover { background: var(--accent2); }
+  .sticky-cta { position: fixed; bottom: -80px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; border-radius: 8px; padding: 14px 32px; font-size: 14px; font-weight: 700; text-decoration: none; white-space: nowrap; transition: bottom 0.3s ease; z-index: 999; box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+  .sticky-cta.visible { bottom: 24px; }
   .cta-section { background: var(--accent); border-radius: 12px; padding: 40px 32px; text-align: center; color: #fff; }
   .cta-label { font-size: 11px; letter-spacing: 0.15em; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
   .cta-heading { font-family: 'Noto Serif JP', serif; font-size: 20px; font-weight: 600; line-height: 1.7; margin-bottom: 12px; }
@@ -87,6 +93,12 @@
       <div class="item-headline">面接官が見たいのは、あなたが言われる前に動けた事実だ。</div>
       <div class="item-body">あなたはこの経験を「言い方を失敗した話」として記憶している。<br>しかし面接官が反応するのはそこではない。<br>社長が気づく前に現金周りを先読みして動けた、その事実だ。<br>上司の視野の外を動ける事務職は極めて少ない。<br>あなたはその武器を「失敗談」として履歴書の外に置いている。</div>
     </div>
+
+    <!-- ②直後のインラインCTA -->
+    <div class="cta-inline">
+      <a href="#" class="btn-inline">残り8項目を解除して読む（¥3,000）</a>
+    </div>
+
     <div class="item locked">
       <div class="item-number">③ 武器の指摘</div>
       <div class="item-headline">面接官が聞きたいのは、あなたがなぜ友人にも甘えなかったのかだ。</div>
@@ -166,10 +178,28 @@
     <p class="cta-body">③〜⑩には、あなたが気づいていない武器の指摘が続いています。<br>「なるほど」だけで終わらせたくない人のための、次のステップです。</p>
     <div class="cta-price"><span class="cta-price-amount">¥3,000</span><span class="cta-price-unit">（税込）</span></div>
     <p class="cta-price-note">デジタルコンテンツの性質上、決済完了後の返金は原則不可です</p>
-    <a href="#" class="btn-primary">自己分析レポートを受け取る（¥3,000）</a>
+    <a href="#" class="btn-primary">残り8項目を解除して読む（¥3,000）</a>
     <a href="#" class="btn-secondary">回答を修正してから決済する</a>
     <p class="disclaimer">決済にはStripeを使用しています。<br><a href="#">特定商取引法に基づく表記</a>　/　<a href="#">プライバシーポリシー</a>　/　<a href="#">利用規約</a></p>
   </div>
 </div>
+
+<a href="#" class="sticky-cta" id="sticky-cta">残り8項目を解除して読む（¥3,000）</a>
+<script>
+  const stickyCta = document.getElementById('sticky-cta');
+  const lockedStart = document.querySelectorAll('.item.locked')[0];
+  const lockedEnd = document.querySelector('.cta-section');
+  function onScroll() {
+    if (!lockedStart || !lockedEnd) return;
+    const startY = lockedStart.getBoundingClientRect().top;
+    const endY = lockedEnd.getBoundingClientRect().top;
+    if (startY < window.innerHeight && endY > 0) {
+      stickyCta.classList.add('visible');
+    } else {
+      stickyCta.classList.remove('visible');
+    }
+  }
+  window.addEventListener('scroll', onScroll);
+</script>
 </body>
 </html>
