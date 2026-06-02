@@ -772,11 +772,13 @@
     // ── ここにMake WebhookのURLを設定する（現在はダミー）──
     const WEBHOOK_URL = 'https://hook.eu1.make.com/n15gtrn5nj7okjuix84eq7p5gadibx7q';
 
-    const payload = {};
-        FIELDS.forEach(f => {
-          const el = document.getElementById(f.id);
-          if (el) payload[f.id] = el.value.replace(/\r\n/g, '\\n').replace(/\r/g, '\\n').replace(/\n/g, '\\n');
-        });
+    const params = new URLSearchParams(window.location.search);
+    const uid = params.get('uid') || '';
+    const payload = { uid: uid };
+    FIELDS.forEach(f => {
+      const el = document.getElementById(f.id);
+      if (el) payload[f.id] = el.value.replace(/\r\n/g, '\\n').replace(/\r/g, '\\n').replace(/\n/g, '\\n');
+    });
 
     const btn = document.getElementById('submit-btn');
     btn.disabled = true;
