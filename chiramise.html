@@ -167,7 +167,13 @@
           itemsList.innerHTML = '<p style="color:red">データが見つかりませんでした。</p>';
           return;
         }
-        const decoded = atob(data.content.replace(/\n/g, ''));
+        const base64 = data.content.replace(/\n/g, '');
+        const binary = atob(base64);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) {
+          bytes[i] = binary.charCodeAt(i);
+        }
+        const decoded = new TextDecoder('utf-8').decode(bytes);
         renderItems(decoded);
       })
       .catch(function() {
