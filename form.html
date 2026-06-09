@@ -790,7 +790,12 @@
       body: JSON.stringify(payload)
     })
     .then(() => {
-      window.location.href = 'thanks.html';
+      const uid = params.get('uid') || '';
+      if (params.get('mode') === 'edit' && uid) {
+        window.location.href = 'chiramise.html?uid=' + uid;
+      } else {
+        window.location.href = 'thanks.html';
+      }
     })
     .catch(() => {
       alert('送信に失敗しました。時間をおいて再度お試しください。');
