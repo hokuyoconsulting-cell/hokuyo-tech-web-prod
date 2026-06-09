@@ -408,6 +408,70 @@
     main { padding: 2rem 1rem 5rem; }
     .section { padding: 1.5rem 1.25rem; }
   }
+/* 確認モーダル */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.visible {
+    display: flex;
+  }
+  .modal {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 2rem;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+  }
+  .modal-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 17px;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+  .modal-body {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+  }
+  .modal-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .modal-btn-primary {
+    background: var(--navy);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.875rem;
+    font-size: 14px;
+    font-family: 'Noto Sans JP', sans-serif;
+    cursor: pointer;
+    width: 100%;
+  }
+  .modal-btn-primary:hover { background: var(--navy-light); }
+  .modal-btn-secondary {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.875rem;
+    font-size: 14px;
+    font-family: 'Noto Sans JP', sans-serif;
+    cursor: pointer;
+    width: 100%;
+  }
+  .modal-btn-secondary:hover { color: var(--navy); border-color: var(--navy); }
+
 </style>
 </head>
 <body>
@@ -663,6 +727,17 @@
   </div>
 
 </main>
+<div class="modal-overlay" id="confirm-modal">
+  <div class="modal">
+    <p class="modal-title" id="modal-title">このまま送信しますか？</p>
+    <p class="modal-body" id="modal-body">具体的なエピソードがあると精度が上がります。</p>
+    <div class="modal-buttons">
+      <button class="modal-btn-primary" id="modal-confirm-btn">このまま送信する</button>
+      <button class="modal-btn-secondary" onclick="closeModal()">見直す</button>
+    </div>
+  </div>
+</div>
+
 
 <footer>
   <p>© 2026 北陽テック / Hokuyo Tech　｜　<a href="tokushoho.html" style="color:inherit;">特定商取引法</a>　<a href="privacy.html" style="color:inherit;">プライバシーポリシー</a>　<a href="terms.html" style="color:inherit;">利用規約</a></p>
@@ -749,7 +824,7 @@
   }
 
   // ─── 送信処理 ─────────────────────────────────
-  function handleSubmit() {
+function handleSubmit() {
     const consent = document.getElementById('pp-consent');
     const summaryEl = document.getElementById('form-error-summary');
 
@@ -761,7 +836,6 @@
     const valid = validate();
     if (!valid) {
       summaryEl.classList.add('visible');
-      // 最初のエラー箇所にスクロール
       const firstError = document.querySelector('textarea.error, input.error');
       if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
@@ -769,11 +843,46 @@
 
     summaryEl.classList.remove('visible');
 
-    // ── ここにMake WebhookのURLを設定する（現在はダミー）──
-    const WEBHOOK_URL = 'https://hook.eu1.make.com/n15gtrn5nj7okjuix84eq7p5gadibx7q';
+    // 確認モーダルを表示
+    const params = new URLSearchParams(window.location.search);
+    const isEdit = params.get('mode') === 'edit';
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+    const modalConfirmBtn = document.getElementById('modal-confirm-btn');
 
+    if (isEdit) {
+      modalTitle.textContent = 'この内容で決済に進みます。';
+      modalBody.textContent = '修正した内容は記録されます。よろしいですか？';
+      modalConfirmBtn.textContent = '決済に進む';
+    } else {
+      modalTitle.textContent = 'このまま送信しますか？';
+      modalBody.textContent = '具体的なエピソードがあると精度が上がります。';
+      modalConfirmBtn.textContent = 'このまま送信する';
+    }
+
+    modalConfirmBtn.onclick = function() {
+      closeModal();
+      executeSubmit();
+    };
+
+    document.getElementById('confirm-modal').classList.add('visible');
+  }
+
+  function closeModal() {
+    document.getElementById('confirm-modal').classList.remove('visible');
+  }
+
+  function executeSubmit() {
+    const WEBHOOK_URL = 'https://hook.eu1.make.com/n15gtrn5nj7okjuix84eq7p5gadibx7q';
     const params = new URLSearchParams(window.location.search);
     const uid = params.get('uid') || '';
+
+    if (params.get('mode') === 'edit' && uid) {
+      const stripeUrl = 'https://buy.stripe.com/test_8x25kD7PMfpJ3oP4G224000?client_reference_id=' + uid;
+      window.location.href = stripeUrl;
+      return;
+    }
+
     const payload = { uid: uid };
     FIELDS.forEach(f => {
       const el = document.getElementById(f.id);
@@ -790,12 +899,7 @@
       body: JSON.stringify(payload)
     })
     .then(() => {
-      const uid = params.get('uid') || '';
-      if (params.get('mode') === 'edit' && uid) {
-        window.location.href = 'chiramise.html?uid=' + uid;
-      } else {
-        window.location.href = 'thanks.html';
-      }
+      window.location.href = 'thanks.html';
     })
     .catch(() => {
       alert('送信に失敗しました。時間をおいて再度お試しください。');
@@ -803,7 +907,6 @@
       document.getElementById('submit-label').textContent = '分析を依頼する（無料）';
     });
   }
-
   // ─── イベント登録 ─────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
     loadFromStorage();
