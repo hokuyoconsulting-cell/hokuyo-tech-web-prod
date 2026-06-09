@@ -101,6 +101,14 @@
   const uid = new URLSearchParams(window.location.search).get('uid') || '';
   const baseUrl = 'https://buy.stripe.com/test_8x25kD7PMfpJ3oP4G224000';
   const payUrl = uid ? baseUrl + '?client_reference_id=' + uid : baseUrl;
+
+  // btn-secondaryにもuidを付与
+  const editUrl = 'https://hokuyoconsulting-cell.github.io/hokuyo-tech-web/form.html?mode=edit';
+  const editUrlWithUid = uid ? editUrl + '&uid=' + uid : editUrl;
+  document.querySelectorAll('a[href="' + editUrl + '"]').forEach(function(el) {
+    el.href = editUrlWithUid;
+  });
+
   document.querySelectorAll('a[href="' + baseUrl + '"]').forEach(function(el) {
     el.href = payUrl;
   });
