@@ -730,6 +730,7 @@
 <div class="modal-overlay" id="confirm-modal">
   <div class="modal">
     <p class="modal-title" id="modal-title">このまま送信しますか？</p>
+    <div id="modal-review" style="max-height:50vh;overflow-y:auto;text-align:left;margin:12px 0;font-size:13px;line-height:1.7;border-top:1px solid #e0e0e0;padding-top:12px;"></div>
     <p class="modal-body" id="modal-body">具体的なエピソードがあると精度が上がります。</p>
     <div class="modal-buttons">
       <button class="modal-btn-primary" id="modal-confirm-btn">このまま送信する</button>
@@ -844,11 +845,13 @@ function handleSubmit() {
     summaryEl.classList.remove('visible');
 
     // 確認モーダルを表示
+    // 確認モーダルを表示
     const params = new URLSearchParams(window.location.search);
     const isEdit = params.get('mode') === 'edit';
     const modalTitle = document.getElementById('modal-title');
     const modalBody = document.getElementById('modal-body');
     const modalConfirmBtn = document.getElementById('modal-confirm-btn');
+    const modalReview = document.getElementById('modal-review');
 
     if (isEdit) {
       modalTitle.textContent = 'この内容で決済に進みます。';
@@ -859,6 +862,33 @@ function handleSubmit() {
       modalBody.textContent = '具体的なエピソードがあると精度が上がります。';
       modalConfirmBtn.textContent = 'このまま送信する';
     }
+
+    // 入力内容をモーダルに表示
+    const LABELS = {
+      hope_industry: '希望業種',
+      avoid_industry: '避けたい業種',
+      hope_job: '希望職種',
+      avoid_job: '避けたい職種',
+      q1:  'Q1. これまで在籍した会社の業種と、誰を相手にどんな仕事をしていましたか？',
+      q2:  'Q2. これまで在籍した会社の「良さ」は、どういう点でしたか？',
+      q3:  'Q3. 「よし、いい仕事をした！」と自分を褒めたくなった瞬間はいつですか？',
+      q4:  'Q4. 思わず「きついな…」と独り言が出てしまった苦労や、その時の行動を教えてください。',
+      q5:  'Q5. 同僚や先輩の行動で「これは素敵だな」と心が動いた瞬間はありますか？',
+      q6:  'Q6. 周りから言われる「あなたの良いところ」や、ほめられた点は何ですか？',
+      q7:  'Q7. チームの仲が非常に悪くギスギスしていたら、あなたならどうしますか？',
+      q8:  'Q8. 7番で答えたことの「それから？」を教えてください。',
+      q9:  'Q9. 5年後、10年後のあなたは、どこで、誰と、どんな風に過ごしていたいですか？',
+      q10: 'Q10. 今の正直な気持ちや、今一番「変えたい」と思っていることを自由に書いてください。',
+      q11: 'Q11. 多くの相談場所がある中で、私たちを選んでくれた理由を教えてください。',
+    };
+
+    let reviewHtml = '';
+    Object.keys(LABELS).forEach(id => {
+      const el = document.getElementById(id);
+      const val = el ? el.value.trim() : '';
+      reviewHtml += `<p style="margin:8px 0;"><strong style="color:#1a2f5a;">${LABELS[id]}</strong><br>${val ? val.replace(/\n/g, '<br>') : '（未入力）'}</p>`;
+    });
+    modalReview.innerHTML = reviewHtml;
 
     modalConfirmBtn.onclick = function() {
       closeModal();
