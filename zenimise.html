@@ -136,7 +136,7 @@
       <span class="cta-price-unit">（税込）</span>
     </div>
     <p class="cta-price-note">予約日時の24時間前までのキャンセルは無償で承ります</p>
-    <a href="https://timerex.net/s/hokuyo.consulting_1436/c2a4f324" class="btn-primary">個別相談を申し込む（TimeRex）</a>
+    <a href="#" class="btn-primary" id="consult-btn">個別相談を申し込む（¥10,000）</a>
     <p class="disclaimer">
       決済にはStripeを使用しています。<br>
       <a href="#">特定商取引法に基づく表記</a>　/　<a href="#">プライバシーポリシー</a>　/　<a href="#">利用規約</a>
@@ -199,6 +199,12 @@
       });
   } else {
     itemsList.innerHTML = '<p style="color:#9199b8;text-align:center;padding:24px">URLにuidが含まれていません。</p>';
+  }
+// 個別相談ボタンにuidを付与
+  const consultBtn = document.getElementById('consult-btn');
+  if (consultBtn) {
+    const baseConsultUrl = 'https://buy.stripe.com/test_6oU28rgmi91laRh0pM24001';
+    consultBtn.href = uid ? baseConsultUrl + '?client_reference_id=' + uid : baseConsultUrl;
   }
 </script>
 
