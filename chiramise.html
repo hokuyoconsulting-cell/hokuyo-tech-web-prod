@@ -128,10 +128,10 @@
       return;
     }
 
-    const numbers = ['①','②','③','④','⑤','⑥','⑦','⑧','⑨','⑩'];
+    const numbers = ['①','②','③','④','⑤','⑥','⑦','⑧'];
     let html = '';
 
-    for (let i = 0; i < Math.min(h2s.length, 10); i++) {
+    for (let i = 0; i < Math.min(h2s.length, 8); i++) {
       const headline = h2s[i].textContent;
       const body = ps[i] ? ps[i].textContent : '';
       const isOpen = i < 2;
