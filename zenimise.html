@@ -88,7 +88,7 @@
 
 <div class="unlocked-banner">
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-  自己分析レポートが解除されました。全10項目を読めます。
+  自己分析レポートが解除されました。全8項目を読めます。
 </div>
 
 <div class="container">
@@ -96,7 +96,7 @@
   <div class="intro">
     <div class="intro-label">FULL REPORT</div>
     <h1 class="intro-heading">面接官の目線から見た、<br>あなたの武器の全診断結果です。</h1>
-    <p class="intro-body">①〜⑩、すべて読んでください。</p>
+    <p class="intro-body">面接官の目線から見た、あなたの武器の全診断結果です。<br><br>あなたが何気なく書いた経験を、面接官はどのように見ているのか。<br><br>①〜⑧を、ぜひ最後までご覧ください。</p>
   </div>
 
  <div class="items-list">
@@ -108,29 +108,21 @@
     <div class="guidance-label">K氏からあなたへ</div>
     <div class="guidance-body">
       <p>ここまで読んで、「なるほど」と思った方へ。</p>
-      <p>それはあなたが、自分の経験を正直に書いたからです。<br>その誠実さは、すでに武器です。</p>
-      <p>ただ、一つだけ聞かせてください。</p>
-      <p>①から⑩を読んで、「そうか、わかった」と思いましたか？</p>
-      <p>けれど、<br>
-      「どう見せればいいのか、まだわからない」<br>
-      と感じましたか？</p>
-      <p>そして、<br>
-      私は、もっと上を目指したいという気持ちが残ってる。</p>
-      <span class="emphasis">その感覚が残っている人だけ、K氏と話してください。</span>
-      <p>K氏はあなたを評価しません。<br>
-      あなたの夢も、強みも、弱みも、否定しません。</p>
-      <p>ただ一つだけ——<br>
-      あなたが輝ける場所と、あなたがマッチするには、<br>
-      あなた自身が何に気づけばいいか。<br>
-      それだけを、あなたと一緒に見ます。</p>
-      <span class="closing">あなたと話せることを、心待ちにしております。</span>
+      <p>今回の分析だけでは見えない部分があります。<br>
+      実際に話をすると、回答には書かれていない「あなたらしさ」が見えてきます。<br>
+      そして、それが面接官が本当に知りたい部分だったりします。</p>
+      <p>K氏は20年以上、採用面談の現場を見てきました。<br>
+      あなたを評価するためではありません。<br>
+      あなたが本来力を発揮できる場所と、そのために何に気づけばいいのか。<br>
+      それを一緒に整理します。</p>
+      <p>まだ何か引っかかるものがあるなら、一度話してみてください。</p>
     </div>
   </div>
 
   <div class="cta-section">
     <div class="cta-label">転職・就職 個別相談</div>
     <h2 class="cta-heading">K氏との個別相談を申し込む</h2>
-    <p class="cta-body">選抜者のみ。日程調整後、ZoomにてK氏と1対1でお話しします。</p>
+    <p class="cta-body">日程調整後、ZoomにてK氏と1対1でお話しします。</p>
     <div class="cta-price">
       <span class="cta-price-amount">¥10,000</span>
       <span class="cta-price-unit">（税込）</span>
@@ -139,7 +131,7 @@
     <a href="#" class="btn-primary" id="consult-btn">個別相談を申し込む（¥10,000）</a>
     <p class="disclaimer">
       決済にはStripeを使用しています。<br>
-      <a href="#">特定商取引法に基づく表記</a>　/　<a href="#">プライバシーポリシー</a>　/　<a href="#">利用規約</a>
+      <a href="https://hokuyoconsulting-cell.github.io/hokuyo-tech-web/tokushoho.html">特定商取引法に基づく表記</a>　/　<a href="https://hokuyoconsulting-cell.github.io/hokuyo-tech-web/privacy.html">プライバシーポリシー</a>　/　<a href="https://hokuyoconsulting-cell.github.io/hokuyo-tech-web/terms.html">利用規約</a>
     </p>
   </div>
 
@@ -160,10 +152,10 @@
       return;
     }
 
-    const numbers = ['①','②','③','④','⑤','⑥','⑦','⑧','⑨','⑩'];
+    const numbers = ['①','②','③','④','⑤','⑥','⑦','⑧'];
     let html = '';
 
-    for (let i = 0; i < Math.min(h2s.length, 10); i++) {
+    for (let i = 0; i < Math.min(h2s.length, 8); i++) {
       const headline = h2s[i].textContent;
       const body = ps[i] ? ps[i].textContent : '';
       html += `
