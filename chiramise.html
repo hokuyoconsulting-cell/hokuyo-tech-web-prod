@@ -76,27 +76,27 @@
   <div class="intro">
     <div class="intro-label">ANALYSIS RESULT</div>
     <h1 class="intro-heading">あなたの経験を、<br>面接官の視点で読み解きました。</h1>
-    <p class="intro-body">あなたが当たり前だと思っている経験の中に、<br>「ぜひ会ってみたい」と感じる理由が隠れています。<br><br>まずは①②をご覧ください。<br>③〜⑧には、あなた自身も気づいていない可能性のある強みや価値が続いています。</p>
+    <p class="intro-body">あなたが当たり前だと思っている経験の中に、<br>「ぜひ会ってみたい」と感じる理由が隠れています。<br><br>まずは①②をご覧ください。<br>③〜⑥には、あなた自身も気づいていない可能性のある強みや価値が続いています。</p>
   </div>
   <div class="count-badge">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-    残り6項目はモザイクがかかっています
+    残りはモザイクがかかっています
   </div>
   <div class="items-list">
   </div>
   <div class="cta-section">
     <div class="cta-label">自己分析レポート</div>
-    <h2 class="cta-heading">残り6項目を解除する</h2>
-    <p class="cta-body">③〜⑧には、あなたがまだ言葉にできていない強みや価値の分析が続いています。<br>この続きを読むことで、自分の見え方が少し変わるかもしれません。</p>
+    <h2 class="cta-heading">残りの項目を解除する</h2>
+    <p class="cta-body">③〜⑥には、あなたがまだ言葉にできていない強みや価値の分析が続いています。<br>この続きを読むことで、自分の見え方が少し変わるかもしれません。</p>
     <div class="cta-price"><span class="cta-price-amount">¥3,300</span><span class="cta-price-unit">（税込）</span></div>
     <p class="cta-price-note">デジタルコンテンツの性質上、決済完了後の返金は原則不可です</p>
-    <a href="https://buy.stripe.com/test_8x25kD7PMfpJ3oP4G224000" class="btn-primary">残り6項目を解除して読む（¥3,300）</a>
+    <a href="https://buy.stripe.com/test_8x25kD7PMfpJ3oP4G224000" class="btn-primary">残りの項目を解除して読む（¥3,300）</a>
     <a href="https://hokuyoconsulting-cell.github.io/hokuyo-tech-web/form.html?mode=edit" class="btn-secondary">回答を修正してから決済する</a>
     <p class="disclaimer">決済にはStripeを使用しています。<br><a href="https://hokuyoconsulting-cell.github.io/hokuyo-tech-web/tokushoho.html">特定商取引法に基づく表記</a>　/　<a href="https://hokuyoconsulting-cell.github.io/hokuyo-tech-web/privacy.html">プライバシーポリシー</a>　/　<a href="https://hokuyoconsulting-cell.github.io/hokuyo-tech-web/terms.html">利用規約</a></p>
   </div>
 </div>
 
-<a href="https://buy.stripe.com/test_8x25kD7PMfpJ3oP4G224000" class="sticky-cta" id="sticky-cta">残り6項目を解除して読む（¥3,300税込）</a>
+<a href="https://buy.stripe.com/test_8x25kD7PMfpJ3oP4G224000" class="sticky-cta" id="sticky-cta">残りの項目を解除して読む（¥3,300税込）</a>
 <script>
   const uid = new URLSearchParams(window.location.search).get('uid') || '';
   const baseUrl = 'https://buy.stripe.com/test_8x25kD7PMfpJ3oP4G224000';
@@ -128,10 +128,10 @@
       return;
     }
 
-    const numbers = ['①','②','③','④','⑤','⑥','⑦','⑧'];
+    const numbers = ['①','②','③','④','⑤','⑥'];
     let html = '';
 
-    for (let i = 0; i < Math.min(h2s.length, 8); i++) {
+    for (let i = 0; i < Math.min(h2s.length, 6); i++) {
       const headline = h2s[i].textContent;
       const body = ps[i] ? ps[i].textContent : '';
       const isOpen = i < 2;
@@ -146,7 +146,7 @@
         if (i === 1) {
           html += `
           <div class="cta-inline">
-            <a href="${payUrl}" class="btn-inline">残り8項目を解除して読む（¥3,300税込）</a>
+            <a href="${payUrl}" class="btn-inline">残りの項目を解除して読む（¥3,300税込）</a>
           </div>`;
         }
       } else {
