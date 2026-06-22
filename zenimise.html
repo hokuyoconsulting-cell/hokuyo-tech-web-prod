@@ -88,7 +88,7 @@
 
 <div class="unlocked-banner">
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-  自己分析レポートが解除されました。全8項目を読めます。
+  自己分析レポートが解除されました。全項目を読めます。
 </div>
 
 <div class="container">
@@ -96,7 +96,7 @@
   <div class="intro">
     <div class="intro-label">FULL REPORT</div>
     <h1 class="intro-heading">面接官の目線から見た、<br>あなたの武器の全診断結果です。</h1>
-    <p class="intro-body">面接官の目線から見た、あなたの武器の全診断結果です。<br><br>あなたが何気なく書いた経験を、面接官はどのように見ているのか。<br><br>①〜⑧を、ぜひ最後までご覧ください。</p>
+    <p class="intro-body">面接官の目線から見た、あなたの武器の全診断結果です。<br><br>あなたが何気なく書いた経験を、面接官はどのように見ているのか。<br><br>①〜⑥を、ぜひ最後までご覧ください。</p>
   </div>
 
  <div class="items-list">
@@ -152,10 +152,10 @@
       return;
     }
 
-    const numbers = ['①','②','③','④','⑤','⑥','⑦','⑧'];
+    const numbers = ['①','②','③','④','⑤','⑥'];
     let html = '';
 
-    for (let i = 0; i < Math.min(h2s.length, 8); i++) {
+    for (let i = 0; i < Math.min(h2s.length, 6); i++) {
       const headline = h2s[i].textContent;
       const body = ps[i] ? ps[i].textContent : '';
       html += `
