@@ -701,22 +701,7 @@
     </div>
   </div>
 
-  <!-- ③ 履歴書アップロード -->
-  <div class="section">
-    <div class="section-header">
-      <p class="section-label">Section 03</p>
-      <p class="section-title">履歴書・職務経歴書 <span style="font-size:13px; font-weight:300; color:var(--text-muted);">（任意）</span></p>
-      <p class="section-note">添付すると分析の精度が上がります。提出しなくても分析は実行されます。<br>PDF・Word形式対応。面談終了後に削除します。</p>
-    </div>
 
-    <div class="file-upload-area" id="upload-area">
-      <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" />
-      <div class="file-upload-icon">📄</div>
-      <p class="file-upload-text">クリックしてファイルを選択</p>
-      <p class="file-upload-sub">PDF / Word（.doc, .docx）</p>
-      <p class="file-selected" id="file-selected-msg"></p>
-    </div>
-  </div>
 
   <!-- ④ PP同意・送信 -->
   <div class="section">
@@ -942,7 +927,7 @@ function handleSubmit() {
     const uid = params.get('uid') || '';
 
     if (params.get('mode') === 'edit' && uid) {
-      const stripeUrl = 'https://buy.stripe.com/test_8x25kD7PMfpJ3oP4G224000?client_reference_id=' + uid;
+      const stripeUrl = 'https://buy.stripe.com/fZu9AM4t36k53rrcJrd3i00?client_reference_id=' + uid;
       window.location.href = stripeUrl;
       return;
     }
@@ -1007,17 +992,7 @@ function handleSubmit() {
       document.querySelector('.intro').after(notice);
     }
 
-    // ファイル選択表示
-    const resumeInput = document.getElementById('resume');
-    const selectedMsg = document.getElementById('file-selected-msg');
-    if (resumeInput) {
-      resumeInput.addEventListener('change', () => {
-        if (resumeInput.files.length > 0) {
-          selectedMsg.textContent = '✓ ' + resumeInput.files[0].name;
-          selectedMsg.style.display = 'block';
-        }
-      });
-    }
+
   });
 </script>
 </body>
