@@ -119,22 +119,15 @@
     </div>
   </div>
 
-  <div class="cta-section">
+<div class="cta-section">
     <div class="cta-label">転職・就職 個別相談</div>
-    <h2 class="cta-heading">K氏との個別相談を申し込む</h2>
-    <p class="cta-body">日程調整後、ZoomにてK氏と1対1でお話しします。</p>
-    <div class="cta-price">
-      <span class="cta-price-amount">¥10,000</span>
-      <span class="cta-price-unit">（税込）</span>
-    </div>
-    <p class="cta-price-note">予約日時の24時間前までのキャンセルは無償で承ります</p>
-    <a href="#" class="btn-primary" id="consult-btn">個別相談を申し込む（¥10,000）</a>
+    <h2 class="cta-heading">K氏との個別相談</h2>
+    <p class="cta-body">現在、新規の個別相談受付を一時停止しております。<br>受付再開次第、LINEでご案内いたします。</p>
     <p class="disclaimer">
       決済にはStripeを使用しています。<br>
-      <a href="https://hokuyoconsulting-cell.github.io/hokuyo-tech-web/tokushoho.html">特定商取引法に基づく表記</a>　/　<a href="https://hokuyoconsulting-cell.github.io/hokuyo-tech-web/privacy.html">プライバシーポリシー</a>　/　<a href="https://hokuyoconsulting-cell.github.io/hokuyo-tech-web/terms.html">利用規約</a>
+      <a href="https://hokuyoconsulting-cell.github.io/hokuyo-tech-web-prod/tokushoho.html">特定商取引法に基づく表記</a>　/　<a href="https://hokuyoconsulting-cell.github.io/hokuyo-tech-web-prod/privacy.html">プライバシーポリシー</a>　/　<a href="https://hokuyoconsulting-cell.github.io/hokuyo-tech-web-prod/terms.html">利用規約</a>
     </p>
   </div>
-
 </div>
 
 <script>
@@ -169,7 +162,7 @@
   }
 
   if (uid) {
-    const apiUrl = 'https://api.github.com/repos/hokuyoconsulting-cell/hokuyo-tech-web/contents/results/' + uid + '.json';
+    const apiUrl = 'https://api.github.com/repos/hokuyoconsulting-cell/hokuyo-tech-web-prod/contents/results/' + uid + '.json';
     fetch(apiUrl, { headers: { 'Accept': 'application/vnd.github+json' } })
       .then(function(res) { return res.json(); })
       .then(function(data) {
@@ -192,12 +185,7 @@
   } else {
     itemsList.innerHTML = '<p style="color:#9199b8;text-align:center;padding:24px">URLにuidが含まれていません。</p>';
   }
-// 個別相談ボタンにuidを付与
-  const consultBtn = document.getElementById('consult-btn');
-  if (consultBtn) {
-    const baseConsultUrl = 'https://buy.stripe.com/test_6oU28rgmi91laRh0pM24001';
-    consultBtn.href = uid ? baseConsultUrl + '?client_reference_id=' + uid : baseConsultUrl;
-  }
+// 個別相談は現在受付停止中のため、ボタン処理なし
 </script>
 
 </body>
