@@ -507,6 +507,24 @@
     <span>入力内容はブラウザに自動保存されます。途中で閉じても再開できます。</span>
   </div>
 
+  <!-- ０ お名前 -->
+  <div class="section">
+    <div class="section-header">
+      <p class="section-label">Section 00</p>
+      <p class="section-title">お名前</p>
+      <p class="section-note">ニックネームでも構いません。後から結果を確認する際に使います。</p>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="user_name">
+        お名前
+        <span class="optional">任意</span>
+      </label>
+      <p class="form-hint">本名でなくても大丈夫です。</p>
+      <input type="text" id="user_name" name="user_name" placeholder="例：山田・やまちゃん・Yuki" />
+    </div>
+  </div>
+
+ 
   <!-- ① 希望業種・職種 -->
   <div class="section">
     <div class="section-header">
@@ -755,6 +773,7 @@
   const STORAGE_KEY = 'hokuyo_form_v1';
 
   const FIELDS = [
+    { id: 'user_name', minLen: 0 },
     { id: 'hope_industry', minLen: 0 },
     { id: 'avoid_industry', minLen: 0 },
     { id: 'hope_job', minLen: 0 },
@@ -965,6 +984,14 @@ function handleSubmit() {
     // ファイル選択表示
     // ─── 編集モード判定 ────────────────────────────
     const params = new URLSearchParams(window.location.search);
+
+    // LINEから受け取った表示名を自動入力
+    const nameParam = params.get('name');
+    if (nameParam) {
+      const nameEl = document.getElementById('user_name');
+      if (nameEl && !nameEl.value) nameEl.value = decodeURIComponent(nameParam);
+    }
+
     if (params.get('mode') === 'edit') {
       // タイトル・見出し・ボタン文言を変更
       document.getElementById('page-title').textContent = '回答を修正する | 北陽テック';
