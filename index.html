@@ -166,6 +166,33 @@
     margin-left: 4px;
   }
 
+  .service-btns {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-service {
+    display: inline-block;
+    padding: 0.7rem 1.4rem;
+    border-radius: 4px;
+    font-size: 13px;
+    text-decoration: none;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .btn-service:hover { background: var(--accent-light); }
+
+  .btn-service-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--ink);
+  }
+
+  .btn-service-outline:hover { border-color: var(--accent); color: var(--accent); }
+
   /* 運営者情報 */
   .operator {
     padding: 4rem 3rem;
@@ -259,11 +286,15 @@
 <section class="services" id="services">
   <p class="section-label">Services</p>
 
-  <div class="service-card">
+    <div class="service-card">
     <p class="service-number">01</p>
     <p class="service-name">自己分析レポート</p>
     <p class="service-sub">面接官が見ている「あなたの武器」を言語化します</p>
     <p class="service-price">¥3,300<span>税込</span></p>
+    <div class="service-btns">
+      <a href="https://line.me/R/ti/p/@460kaelq" class="btn-service">A診断（LINE）</a>
+      <a href="https://hokuyoconsulting-cell.github.io/hokuyo-tech-web/form_v2.html" class="btn-service btn-service-outline">B診断（Web）</a>
+    </div>
   </div>
 
   <div class="service-card">
