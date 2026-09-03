@@ -1,0 +1,476 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareerCS | 北陽テック | Hokuyo Tech</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #202430;
+    --ink-light: #545a68;
+    --ink-muted: #8b909c;
+    --white: #ffffff;
+    --gray-50: #f5f6f8;
+    --gray-100: #eceef1;
+    --border: #dcdfe4;
+    --navy: #1e3a5f;
+    --navy-light: #2c517f;
+    --navy-pale: #eaf0f6;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.85;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--navy);
+    outline-offset: 3px;
+  }
+
+  section { padding: 5rem 3rem; }
+  .inner { max-width: 1000px; margin: 0 auto; }
+  .inner-narrow { max-width: 720px; margin: 0 auto; }
+
+  /* ── ヘッダー ───────────────────────── */
+  header {
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  header nav a {
+    font-size: 13px;
+    color: var(--ink-light);
+    text-decoration: none;
+    margin-left: 2rem;
+  }
+
+  header nav a:hover { color: var(--navy); }
+
+  /* ── ①CareerCSとは（ヒーロー） ───────── */
+  .hero {
+    background: var(--gray-50);
+    padding: 4.5rem 3rem;
+  }
+
+  .hero .inner {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 3.5rem;
+    align-items: center;
+  }
+
+  .hero-eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--navy);
+    margin-bottom: 1.25rem;
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(24px, 3.4vw, 32px);
+    font-weight: 500;
+    line-height: 1.65;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero p.lead {
+    font-size: 14.5px;
+    color: var(--ink-light);
+    line-height: 2;
+    margin-bottom: 2.25rem;
+    max-width: 480px;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 0.9rem 2rem;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    background: var(--navy);
+    color: #fff;
+    transition: background 0.2s ease;
+  }
+
+  .btn-primary:hover { background: var(--navy-light); }
+
+  .photo-placeholder {
+    aspect-ratio: 4 / 3;
+    background: var(--navy-pale);
+    border: 1px dashed #b9c6d6;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    color: #7d93ab;
+  }
+
+  .photo-placeholder svg { width: 40px; height: 40px; }
+  .photo-placeholder p { font-size: 12px; letter-spacing: 0.02em; }
+
+  /* ── ②こんな悩みありませんか ───────── */
+  .worries { }
+
+  .section-eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--navy);
+    text-align: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--ink);
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .worry-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .worry-item {
+    background: var(--gray-50);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.75rem 1.5rem;
+    text-align: center;
+  }
+
+  .worry-item p {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.8;
+  }
+
+  .worries .lead-message {
+    text-align: center;
+    font-size: 15px;
+    color: var(--ink-light);
+    max-width: 620px;
+    margin: 0 auto;
+    line-height: 2.1;
+  }
+
+  .worries .lead-message strong {
+    color: var(--navy);
+    font-weight: 500;
+  }
+
+  /* ── ③A診断／B診断 ───────────────────── */
+  .diagnoses { background: var(--gray-50); }
+
+  .diag-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem;
+  }
+
+  .diag-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2.25rem 2rem;
+  }
+
+  .diag-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--navy);
+    background: var(--navy-pale);
+    border-radius: 3px;
+    padding: 0.3rem 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .diag-card h3 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  .diag-card p.desc {
+    font-size: 13.5px;
+    color: var(--ink-light);
+    line-height: 1.9;
+    margin-bottom: 1rem;
+  }
+
+  .diag-card p.meta {
+    font-size: 12px;
+    color: var(--ink-muted);
+    margin-bottom: 1.75rem;
+  }
+
+  .btn-service {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding: 0.85rem 1.5rem;
+    border-radius: 3px;
+    font-size: 13.5px;
+    font-weight: 500;
+    text-decoration: none;
+    background: var(--navy);
+    color: #fff;
+    transition: background 0.2s ease;
+  }
+
+  .btn-service:hover { background: var(--navy-light); }
+
+  .diagnoses-footer {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 13px;
+    color: var(--ink-light);
+  }
+
+  /* ── ④診断後の流れ ───────────────────── */
+  .flow-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+
+  .flow-step {
+    text-align: center;
+    padding: 0 0.5rem;
+  }
+
+  .flow-step .num {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: #fff;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+  }
+
+  .flow-step p {
+    font-size: 13.5px;
+    color: var(--ink-light);
+    line-height: 1.8;
+  }
+
+  .flow-note {
+    text-align: center;
+    margin-top: 2.5rem;
+    font-size: 12.5px;
+    color: var(--ink-muted);
+  }
+
+  /* ── ⑤運営者情報 ─────────────────────── */
+  .operator { background: var(--gray-50); }
+
+  .operator-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .operator-item {
+    padding: 1.25rem 1.5rem;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+
+  .operator-item .label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .operator-item .value {
+    font-size: 14px;
+    color: var(--ink);
+  }
+
+  footer {
+    padding: 2.5rem 3rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  footer p {
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 760px) {
+    header, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .hero .inner { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-inner-order { order: 2; }
+    .worry-list { grid-template-columns: 1fr; }
+    .diag-grid { grid-template-columns: 1fr; }
+    .flow-steps { grid-template-columns: 1fr 1fr; row-gap: 2rem; }
+    .operator-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">北陽テック — CareerCS</a>
+  <nav>
+    <a href="index.html">トップ</a>
+    <a href="#diagnoses">診断を選ぶ</a>
+    <a href="#operator">運営者情報</a>
+  </nav>
+</header>
+
+<!-- ①CareerCSとは -->
+<section class="hero">
+  <div class="inner">
+    <div>
+      <p class="hero-eyebrow">CareerCS</p>
+      <h1>仕事を選ぶ前に、<br>まず自分を知り直す。</h1>
+      <p class="lead">CareerCSは、AIとの対話や振り返りを通じて、仕事を選ぶ前に「自分自身のことを知り直す」ためのサービスです。面接官の視点も取り入れながら、あなた自身がまだ言葉にできていない強みや価値観を、一緒に見つけていきます。</p>
+      <a href="#diagnoses" class="btn-primary">診断をはじめる</a>
+    </div>
+    <div class="photo-placeholder" aria-label="写真プレースホルダー">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1.5"/><circle cx="9" cy="10" r="2"/><path d="M3 17l5-5 4 4 3-3 6 5"/></svg>
+      <p>ここに写真を挿入（例：仕事・対話・PC作業のシーン）</p>
+    </div>
+  </div>
+</section>
+
+<!-- ②こんな悩みありませんか -->
+<section class="worries">
+  <div class="inner-narrow">
+    <p class="section-eyebrow">Concerns</p>
+    <h2 class="section-title">こんなこと、ありませんか？</h2>
+    <div class="worry-list">
+      <div class="worry-item"><p>「今のままでいいのかな」</p></div>
+      <div class="worry-item"><p>「自分には、これが精いっぱいなのかな」</p></div>
+      <div class="worry-item"><p>「もっと何かできるんじゃないかな」</p></div>
+    </div>
+    <p class="lead-message">そんなモヤモヤを感じても、何が原因なのか、自分ではなかなか分からないものです。<br><strong>CareerCSは、仕事を探す前に、まず自分を知り直すためのサービスです。</strong></p>
+  </div>
+</section>
+
+<!-- ③A診断／B診断 -->
+<section class="diagnoses" id="diagnoses">
+  <div class="inner">
+    <p class="section-eyebrow">Diagnosis</p>
+    <h2 class="section-title">あなたに合う診断を選べます</h2>
+    <div class="diag-grid">
+      <div class="diag-card">
+        <p class="diag-tag">B診断</p>
+        <h3>まずは気軽に、自分を知りたい方へ</h3>
+        <p class="desc">日常の出来事やモヤモヤをもとに、AIとの対話から、自分でも気づいていなかった「本当の自分」を探ります。</p>
+        <p class="meta">選択式＋ChatGPT／Web／所要時間：短め</p>
+        <a href="https://hokuyoconsulting-cell.github.io/hokuyo-tech-web/form_v2.html" class="btn-service">B診断をはじめる</a>
+      </div>
+      <div class="diag-card">
+        <p class="diag-tag">A診断</p>
+        <h3>自分の経験をじっくり振り返りたい方へ</h3>
+        <p class="desc">これまでの経験を一つひとつ振り返りながら、自分では気づいていなかった「強み」をいくつも見つけていきます。</p>
+        <p class="meta">自由記述／LINE／所要時間：じっくり</p>
+        <a href="https://line.me/R/ti/p/@460kaelq" class="btn-service">A診断をはじめる</a>
+      </div>
+    </div>
+    <p class="diagnoses-footer">どちらが正解、というものではありません。今のあなたが「知りたい」と思った方から、お選びください。</p>
+  </div>
+</section>
+
+<!-- ④診断後の流れ -->
+<section class="flow">
+  <div class="inner">
+    <p class="section-eyebrow">After Diagnosis</p>
+    <h2 class="section-title">診断を受けたあと、どうなるの？</h2>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="num">1</div><p>診断結果を見る</p></div>
+      <div class="flow-step"><div class="num">2</div><p>新しい発見がある</p></div>
+      <div class="flow-step"><div class="num">3</div><p>もっと知りたい気持ちが生まれる</p></div>
+      <div class="flow-step"><div class="num">4</div><p>必要なら個別相談へ</p></div>
+    </div>
+    <p class="flow-note">個別相談（¥10,000）は準備中です</p>
+  </div>
+</section>
+
+<!-- ⑤運営者情報 -->
+<section class="operator" id="operator">
+  <div class="inner">
+    <p class="section-eyebrow">Operator</p>
+    <h2 class="section-title">運営者情報</h2>
+    <div class="operator-grid">
+      <div class="operator-item">
+        <p class="label">運営名称</p>
+        <p class="value">北陽テック / Hokuyo Tech</p>
+      </div>
+      <div class="operator-item">
+        <p class="label">メールアドレス</p>
+        <p class="value">hokuyo.consulting@gmail.com</p>
+      </div>
+      <div class="operator-item">
+        <p class="label">受付時間</p>
+        <p class="value">平日 10:00〜18:00</p>
+      </div>
+      <div class="operator-item">
+        <p class="label">詳細</p>
+        <p class="value"><a href="index.html#operator" style="color:var(--navy);">トップページで見る</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 北陽テック / Hokuyo Tech</p>
+</footer>
+
+</body>
+</html>
