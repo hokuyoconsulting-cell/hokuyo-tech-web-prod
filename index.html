@@ -4,28 +4,137 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>北陽テック | Hokuyo Tech</title>
+<meta name="description" content="北陽テックは、設計から開発・公開までをひとりで行い、実際に使える形まで仕上げます。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  body {
-    font-family: 'Noto Sans JP', sans-serif;
-    text-align: center;
-    padding: 6rem 1.5rem;
-    background: #f7f5f0;
-    color: #1a1a18;
+  :root {
+    --ink: #22282B;
+    --sub: #6A7378;
+    --line: #E2E8E9;
+    --accent: #336B73;
+    --bg: #FCFCFC;
+    --card: #DCDCDC;
+    --card-line: #CACACA;
+    --card-hover: #D2D2D2;
   }
-  h1 { font-size: 22px; font-weight: 500; margin-bottom: 2rem; }
-  a.btn {
-    display: inline-block;
-    padding: 0.9rem 2rem;
-    background: #1e3a5f;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 4px;
-    font-size: 14px;
-  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { overflow-x: hidden; }
+  body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--ink); }
+  a { color: inherit; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+
+  /* 一番上 */
+  header { padding: 72px 0 48px; }
+  .eyebrow { font-size: 12px; letter-spacing: .25em; color: var(--accent); }
+  h1 { font-family: 'Noto Serif JP', serif; font-weight: 600; font-size: clamp(26px, 6vw, 40px); line-height: 1.6; margin: 16px 0; }
+  header p { line-height: 2; font-size: 15px; color: var(--sub); }
+
+  /* 作品ごとの段 */
+  .story { padding: 52px 0; border-top: 1px solid var(--line); }
+  .no { font-family: 'Noto Serif JP', serif; font-size: 14px; letter-spacing: .1em; color: var(--accent);
+        border-left: 3px solid var(--accent); padding-left: 10px; line-height: 1.4; margin-bottom: 20px; }
+  .label { font-size: 12px; letter-spacing: .15em; color: var(--sub); margin-bottom: 6px; }
+  .worry { font-family: 'Noto Serif JP', serif; font-size: clamp(20px, 4.4vw, 26px); line-height: 1.75; margin-bottom: 22px; }
+
+  .can { font-size: 16px; line-height: 1.8; margin-bottom: 22px; }
+
+  /* 押せる枠（作品カード） */
+  .app { display: flex; gap: 16px; align-items: center; border: 1px solid var(--card-line); border-radius: 12px;
+         padding: 16px 18px; background: var(--card); text-decoration: none; }
+  a.app:hover { background: var(--card-hover); border-color: var(--accent); }
+  .app-text { flex: 1; min-width: 0; }
+  .app-name { font-family: 'Noto Serif JP', serif; font-weight: 600; font-size: 19px; }
+  .app-meta { font-size: 12px; color: #55626a; margin: 2px 0 4px; }
+  .app-meta .live { color: var(--accent); font-weight: 500; }
+  .app-desc { font-size: 14px; line-height: 1.7; color: #2f383b; }
+  .go { font-size: 20px; color: var(--accent); flex-shrink: 0; }
+  .go.off { color: #5f686c; font-size: 12px; }
+
+  /* アイコン：アプリ（角の丸い四角） */
+  .icon { width: 56px; height: 56px; flex-shrink: 0; border-radius: 14px; display: flex; align-items: center; justify-content: center;
+          color: #fff; font-weight: 700; font-size: 20px; background: var(--accent); }
+  .icon-img { width: 56px; height: 56px; flex-shrink: 0; border-radius: 14px; display: block; }
+  /* アイコン：WEBサービス（ブラウザ窓の形） */
+  .icon.web { width: 72px; height: 52px; border-radius: 6px; background: #fff; border: 1.5px solid var(--accent);
+              flex-direction: column; justify-content: flex-start; overflow: hidden; }
+  .icon.web .bar { width: 100%; height: 12px; background: var(--accent); display: flex; gap: 3px; align-items: center; padding-left: 5px; }
+  .icon.web .bar i { width: 4px; height: 4px; border-radius: 50%; background: #fff; display: block; }
+  .icon.web .webtxt { flex: 1; display: flex; align-items: center; justify-content: center; text-align: center;
+                      color: var(--accent); font-size: 10px; line-height: 1.25; font-weight: 700; letter-spacing: .02em; }
+
+  .more { border-top: 1px solid var(--line); padding: 32px 0 8px; font-size: 14px; color: var(--sub); }
+
+  .about { border-top: 1px solid var(--line); margin-top: 32px; padding: 56px 16px 24px; }
+  .about h2 { font-family: 'Noto Serif JP', serif; font-size: 22px; margin-bottom: 14px; }
+  .about p { line-height: 2; font-size: 15px; }
+  footer { padding: 28px 0 40px; font-size: 13px; color: var(--sub); text-align: center; }
 </style>
 </head>
 <body>
-  <h1>北陽テック / Hokuyo Tech</h1>
-  <a class="btn" href="https://hokuyoconsulting-cell.github.io/hokuyo-tech-web-careerCS/index.html">面接官の目線 はこちら</a>
+
+<header><div class="wrap">
+  <div class="eyebrow">HOKUYO TECH</div>
+  <h1>動くところまで、<br>つくる。</h1>
+  <p>ひとつずつ、「なぜ作ったか」と一緒にご紹介します。</p>
+</div></header>
+
+<main>
+  <section class="story"><div class="wrap">
+    <div class="no">No.01</div>
+    <div class="label">困りごと</div>
+    <p class="worry">「今のままでいいのかな」。<br>まだ言葉にならないモヤモヤがある。</p>
+    <div class="label">できること</div>
+    <p class="can">自分の強みや、仕事選びの軸を整理する。</p>
+    <a class="app" href="https://hokuyoconsulting-cell.github.io/hokuyo-tech-web-careerCS/">
+      <div class="icon web"><div class="bar"><i></i><i></i><i></i></div><div class="webtxt">WEB<br>サービス</div></div>
+      <div class="app-text"><div class="app-name">面接官の目線</div>
+        <div class="app-meta">WEBサービス ・ <span class="live">公開中</span></div>
+        <div class="app-desc">面接対策の前に、自分を知り直す無料診断。</div></div>
+      <span class="go">→</span>
+    </a>
+  </div></section>
+
+  <section class="story"><div class="wrap">
+    <div class="no">No.02</div>
+    <div class="label">困りごと</div>
+    <p class="worry">海の上、空の上で、<br>自分の位置が分からない。。。</p>
+    <div class="label">できること</div>
+    <p class="can">電波が届かない場所でも、地図を確認できる。</p>
+    <a class="app" href="https://apps.apple.com/jp/app/offmap-v4/id6768149710">
+      <img class="icon-img" src="data:image/jpeg;base64,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" alt="OFFMAPのアイコン" width="56" height="56">
+      <div class="app-text"><div class="app-name">OFFMAP</div>
+        <div class="app-meta">iOSアプリ ・ <span class="live">公開中</span></div>
+        <div class="app-desc">事前に地図を読み込んで使う、オフライン地図アプリ。</div></div>
+      <span class="go">→</span>
+    </a>
+  </div></section>
+
+  <section class="story"><div class="wrap">
+    <div class="no">No.03</div>
+    <div class="label">困りごと</div>
+    <p class="worry">広告を出したいけれど、<br>何を書けば人に届くのか分からない。</p>
+    <div class="label">できること</div>
+    <p class="can">質問に答えるだけで、広告の案を作る。</p>
+    <div class="app">
+      <div class="icon web"><div class="bar"><i></i><i></i><i></i></div><div class="webtxt">WEB<br>サービス</div></div>
+      <div class="app-text"><div class="app-name">広告づくりの道具</div>
+        <div class="app-meta">WEBサービス ・ 構想中</div>
+        <div class="app-desc">質問に答えるだけで、広告の案を作る道具。</div></div>
+      <span class="go off">準備中</span>
+    </div>
+  </div></section>
+
+  <div class="wrap"><p class="more">ほかにも、いくつかの道具を準備しています。</p></div>
+</main>
+
+<div class="wrap about">
+  <h2>つくっている人</h2>
+  <p>北陽テックは、設計から開発、公開までをひとりで行っています。身近な人の困りごとや思いついたことを、実際に使える形まで仕上げます。</p>
+</div>
+
+<footer>北陽テック（Hokuyo Tech）　hokuyo.consulting@gmail.com</footer>
+
 </body>
 </html>
